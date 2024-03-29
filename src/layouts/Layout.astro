@@ -2,11 +2,15 @@
 import Navigation from '../components/Navigation.astro';
 import { ViewTransitions } from 'astro:transitions';
 import './global.css'
+import { getRelativeLocaleUrl } from "astro:i18n";
+
 const { title } = Astro.props;
+const currentLocale = getRelativeLocaleUrl(Astro.currentLocale);
+const lang = currentLocale.replaceAll('/', '')
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang=`${lang}`>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />

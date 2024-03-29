@@ -1,12 +1,32 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "../i18n/utils";
 import { fade } from "astro:transitions";
----
 
-<nav id="navigation" class="relative w-full *:p-5"
->
-  <div transition:animate={fade({duration: '2.5s'})} class ="fixed top-0 left-0"><a href="/">Home</a></div>
-  <div transition:animate={fade({duration: '2.5s'})} class="fixed top-0 right-0"><a href="/prices">Prices</a></div>
-  <div transition:animate={fade({duration: '2.5s'})} class="fixed top-1/2 left-0 ">en/bg</div>
-  <div transition:animate={fade({duration: '2.5s'})} class="fixed bottom-0 left-0"><a href="/about">About</a></div>
-  <div transition:animate={fade({duration: '2.5s'})} class="fixed bottom-0 right-0"><a href="/moments">Moments</a></div>
+const currentLocale = getRelativeLocaleUrl(Astro.currentLocale);
+const lang = currentLocale.replaceAll("/", "");
+const t = useTranslations(lang);
+console.log(Astro.url.href.replace("bg", "en"));
+---
+\
+<nav title="navigation" class="relative w-full *:p-5" >
+	<div transition:animate={fade({duration: '1.5s'})} class="fixed top-0 left-0">
+		<a href=`${currentLocale}`>{t("nav.home")}</a>
+	</div>
+	<div transition:animate={fade({duration: '2s'})} class="fixed top-0 right-0">
+		<a href=`${currentLocale}prices`>{t("nav.prices")}</a>
+	</div>
+	<div transition:animate={fade({duration: '2s'})} class="fixed top-1/2 left-0">
+		<a href=`${Astro.url.href.replace('bg', 'en')}`>en /</a><a
+			href=`${Astro.url.href.replace('en', 'bg')}`
+		>
+			bg</a
+		>
+	</div>
+	<div transition:animate={fade({duration: '2s'})} class="fixed bottom-0 left-0">
+		<a href=`${currentLocale}about`>{t("nav.about")}</a>
+	</div>
+	<div transition:animate={fade({duration: '2s'})} class="fixed bottom-0 right-0">
+		<a href=`${currentLocale}moments`>{t("nav.moments")}</a>
+	</div>
 </nav>

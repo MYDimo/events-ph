@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Homepage">
+	<main class="w-full h-screen flex flex-col p-10 items-center">
+		<section class="h-full w-1/2 flex flex-col justify-center items-center">
+			<div>About copy + couple of images</div>
+			<div x-data="{ open: false }">
+				<button @click="open = ! open">Toggle</button>
+		 
+				<span x-show="open" x-transition>
+						Hello 👋
+				</span>
+		</div>
+		</section>
+	</main>
+</Layout>
