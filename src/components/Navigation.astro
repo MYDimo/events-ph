@@ -8,25 +8,51 @@ const lang = currentLocale.replaceAll("/", "");
 const t = useTranslations(lang);
 console.log(Astro.url.href.replace("bg", "en"));
 ---
-\
-<nav title="navigation" class="relative w-full *:p-5" >
-	<div transition:animate={fade({duration: '1.5s'})} class="fixed top-0 left-0">
-		<a href=`${currentLocale}`>{t("nav.home")}</a>
-	</div>
-	<div transition:animate={fade({duration: '2s'})} class="fixed top-0 right-0">
-		<a href=`${currentLocale}prices`>{t("nav.prices")}</a>
-	</div>
-	<div transition:animate={fade({duration: '2s'})} class="fixed top-1/2 left-0">
-		<a href=`${Astro.url.href.replace('bg', 'en')}`>en /</a><a
-			href=`${Astro.url.href.replace('en', 'bg')}`
-		>
-			bg</a
-		>
-	</div>
-	<div transition:animate={fade({duration: '2s'})} class="fixed bottom-0 left-0">
-		<a href=`${currentLocale}about`>{t("nav.about")}</a>
-	</div>
-	<div transition:animate={fade({duration: '2s'})} class="fixed bottom-0 right-0">
-		<a href=`${currentLocale}moments`>{t("nav.moments")}</a>
-	</div>
+<nav title="navigation" class="relative w-full group *:duration-700">
+	<div title="nav-desktop" class="hidden lg:block *:m-8">
+    <div transition:animate={fade({duration: '1.5s'})} class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1]">
+      <a href=`${currentLocale}`>{t("nav.home")}</a>
+    </div>
+    <div transition:animate={fade({duration: '2s'})} class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1]">
+      <a href=`${currentLocale}prices`>{t("nav.prices")}</a>
+    </div>
+    <div transition:animate={fade({duration: '2s'})} class="fixed top-1/2 left-0 group-hover:blur-sm group-hover:hover:blur-none">
+      <div class="group/locales flex gap-1">
+        <a href=`${Astro.url.href.replace('bg', 'en')}` class="duration-300 group-hover/locales:opacity-0 group-hover/locales:hover:opacity-100">en</a>
+        /
+        <a href=`${Astro.url.href.replace('en', 'bg')}` class="duration-300 group-hover/locales:opacity-0 group-hover/locales:hover:opacity-100">bg</a>
+      </div>
+    </div>
+    <div transition:animate={fade({duration: '2s'})} class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1]">
+      <a href=`${currentLocale}about`>{t("nav.about")}</a>
+    </div>
+    <div transition:animate={fade({duration: '2s'})} class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1]">
+      <a href=`${currentLocale}moments`>{t("nav.moments")}</a>
+    </div>
+  </div>
+  <div title="nav-mobile" class="w-full flex lg:hidden fixed" x-data="{open: false}">
+    <h1 class="prose">YOOOOOO this is the logo</h1>
+    <div class="tham tham-e-squeeze tham-w-11 z-50" @click="open = !open; $el.classList.toggle('tham-active')">
+      <div class="tham-box">
+        <div class=`tham-inner` :class="open ? 'bg-slate-50' : 'bg-slate-600'"></div>
+      </div>
+    </div>
+    <div class="bg-zinc-600 w-screen h-screen absolute z-40" x-show="open">
+      <div class="flex">
+        link1
+        link2
+        etc..
+      </div>
+    </div>
+  </div>
 </nav>
+
+<script>
+  const navChildren = document.querySelectorAll('nav a');
+
+  navChildren.forEach(child => {
+    child.addEventListener('mouseover', () => {
+      console.log('hoovering')
+    })
+  })
+</script>
