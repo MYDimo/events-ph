@@ -1,12 +1,12 @@
 ---
-import Navigation from '../components/Navigation.astro';
-import { ViewTransitions } from 'astro:transitions';
-import './global.css'
+import Navigation from "../components/Navigation.astro";
+import { ViewTransitions } from "astro:transitions";
+import "./global.css";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 const { title } = Astro.props;
 const currentLocale = getRelativeLocaleUrl(Astro.currentLocale);
-const lang = currentLocale.replaceAll('/', '')
+const lang = currentLocale.replaceAll("/", "");
 ---
 
 <!doctype html>
@@ -22,6 +22,8 @@ const lang = currentLocale.replaceAll('/', '')
 	</head>
 	<body>
 		<Navigation />
-		<slot class="z-0" />
+		<main class="AREBE w-full h-screen flex flex-col p-10 items-center -z-50">
+			<slot />
+		</main>
 	</body>
 </html>
