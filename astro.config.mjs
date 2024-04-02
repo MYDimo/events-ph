@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import { astroImageTools } from "astro-imagetools";
 import tailwind from "@astrojs/tailwind";
 
 import alpinejs from "@astrojs/alpinejs";
@@ -9,17 +8,13 @@ export default defineConfig({
 	prefetch: false,
 	integrations: [
 		tailwind(),
-		astroImageTools,
 		alpinejs({ entrypoint: "/src/entrypoint" }),
 	],
 	i18n: {
 		defaultLocale: "bg",
 		locales: ["en", "bg"],
 		routing: {
-			prefixDefaultLocale: true,
+			prefixDefaultLocale: false,
 		},
-		fallback: {
-      en: "bg"
-    }
 	},
 });
