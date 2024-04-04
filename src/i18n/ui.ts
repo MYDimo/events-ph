@@ -15,7 +15,7 @@ export const ui = {
   bg: {
     'nav.home': 'Начало',
     'nav.prices': 'Цени',
-    'nav.about': 'За мен',
+    'nav.about': 'За-мен',
     'nav.moments': 'Моменти',
   },
 } as const;

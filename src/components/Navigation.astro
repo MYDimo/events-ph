@@ -1,12 +1,24 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { useTranslations } from "../i18n/utils";
+import { navChangeLanguage } from "../utils/navigationLocales"
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { fade } from "astro:transitions";
 
-const currentLocale = getRelativeLocaleUrl(Astro.currentLocale);
-const lang = currentLocale.replaceAll("/", "");
+// const currentLocale = getRelativeLocaleUrl(Astro.currentLocale);
+// const lang = currentLocale.replaceAll("/", "");
+
+const lang = getLangFromUrl(Astro.url);
+let pathName = Astro.url.pathname;
+lang == 'en' ? pathName = pathName.split('/')[2] : pathName = pathName.split('/')[1]
+// const decoded = decodeURIComponent(pathName.substring(1, pathName.length-1));
+
 const t = useTranslations(lang);
-console.log(Astro.url.href.replace("bg", "en"));
+console.log(t("nav.home"));
+console.log(lang);
+console.log(pathName);
+console.log(navChangeLanguage.en[pathName]);
+
+
 ---
 
 <nav title="navigation" class="relative w-full group">
@@ -15,13 +27,13 @@ console.log(Astro.url.href.replace("bg", "en"));
 			transition:animate={fade({ duration: "1.5s" })}
 			class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-700"
 		>
-			<a href=`${currentLocale}`>{t("nav.home")}</a>
+			<a href=`/${lang}/`>{t("nav.home")}</a>
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
 			class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-700"
 		>
-			<a href=`${currentLocale}prices`>{t("nav.prices")}</a>
+			<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.prices").toLowerCase()}/`>{t("nav.prices")}</a>
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
@@ -29,14 +41,14 @@ console.log(Astro.url.href.replace("bg", "en"));
 		>
 			<div class="group/locales flex gap-1">
 				<a
-					href=`${Astro.url.href.replace('bg', 'en')}`
-					class="duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100"
+					href=`/en/${navChangeLanguage[lang][pathName]}`
+					class=`duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'en' ? 'cursor-not-allowed': ''}`
 					>en</a
 				>
 				/
 				<a
-					href=`${Astro.url.href.replace('en', 'bg')}`
-					class="duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100"
+					href=`/${navChangeLanguage[lang][pathName]}`
+					class=`duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'bg' ? 'cursor-not-allowed': ''}`
 					>bg</a
 				>
 			</div>
@@ -45,13 +57,13 @@ console.log(Astro.url.href.replace("bg", "en"));
 			transition:animate={fade({ duration: "2s" })}
 			class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-700"
 		>
-			<a href=`${currentLocale}about`>{t("nav.about")}</a>
+			<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.about").toLowerCase()}/`>{t("nav.about").replace('-', ' ')}</a>
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
 			class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-700"
 		>
-			<a href=`${currentLocale}moments`>{t("nav.moments")}</a>
+			<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.moments").toLowerCase()}/`>{t("nav.moments")}</a>
 		</div>
 	</div>
 	<div
@@ -82,10 +94,10 @@ console.log(Astro.url.href.replace("bg", "en"));
 					/
 					<a href=`${Astro.url.href.replace('en', 'bg')}`>bg</a>
 				</div>
-				<a href=`${currentLocale}`>{t("nav.home")}</a>
-				<a href=`${currentLocale}prices`>{t("nav.prices")}</a>
-				<a href=`${currentLocale}about`>{t("nav.about")}</a>
-				<a href=`${currentLocale}moments`>{t("nav.moments")}</a>
+				<a href=`/${lang}`>{t("nav.home")}</a>
+				<a href=`/${lang}prices`>{t("nav.prices")}</a>
+				<a href=`/${lang}about`>{t("nav.about")}</a>
+				<a href=`/${lang}moments`>{t("nav.moments")}</a>
 			</div>
 		</div>
 	</div>
