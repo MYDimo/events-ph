@@ -41,13 +41,13 @@ console.log(navChangeLanguage.en[pathName]);
 		>
 			<div class="group/locales flex gap-1">
 				<a
-					href=`/en/${navChangeLanguage[lang][pathName]}`
+					href=`/en/${pathName ? navChangeLanguage[lang][pathName] : ''}`
 					class=`duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'en' ? 'cursor-not-allowed': ''}`
 					>en</a
 				>
 				/
 				<a
-					href=`/${navChangeLanguage[lang][pathName]}`
+					href=`/${pathName ? navChangeLanguage[lang][pathName] : ''}`
 					class=`duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'bg' ? 'cursor-not-allowed': ''}`
 					>bg</a
 				>
@@ -90,14 +90,14 @@ console.log(navChangeLanguage.en[pathName]);
 		<div class="bg-zinc-600 w-screen h-screen absolute z-40" x-show="open">
 			<div class="flex flex-col h-full justify-center items-center gap-10">
 				<div class="group/locales flex gap-1">
-					<a href=`${Astro.url.href.replace('bg', 'en')}`>en</a>
+					<a href=`/en/${pathName ? navChangeLanguage[lang][pathName] : ''}`>en</a>
 					/
-					<a href=`${Astro.url.href.replace('en', 'bg')}`>bg</a>
+					<a href=`/${pathName ? navChangeLanguage[lang][pathName] : ''}`>bg</a>
 				</div>
 				<a href=`/${lang}`>{t("nav.home")}</a>
-				<a href=`/${lang}prices`>{t("nav.prices")}</a>
-				<a href=`/${lang}about`>{t("nav.about")}</a>
-				<a href=`/${lang}moments`>{t("nav.moments")}</a>
+				<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.prices").toLowerCase()}/`>{t("nav.prices")}</a>
+				<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.about").toLowerCase()}/`>{t("nav.about").replace('-', ' ')}</a>
+				<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.moments").toLowerCase()}/`>{t("nav.moments")}</a>
 			</div>
 		</div>
 	</div>
