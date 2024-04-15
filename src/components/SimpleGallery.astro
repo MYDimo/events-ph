@@ -1,0 +1,18 @@
+---
+import { Image } from "@unpic/astro";
+const { galleryImages } = Astro.props;
+---
+
+<div class="gap-4 columns-2 md:columns-3">
+  {
+    galleryImages.map((x) => (
+      <Image
+        x-show="weddings"
+        src={x.default.src}
+        class="h-auto max-w-full rounded-xl\ mb-4"
+        layout="fixed"
+        alt="Full width"
+      />
+    ))
+  }
+</div>

@@ -1,0 +1,127 @@
+---
+import { Image } from "astro:assets";
+import { getRandomImg } from "../utils/getRandomImg";
+
+const concertImgs = await Astro.glob(
+  "../images/homepage/concerts/*.{jpg,JPG,png,JPEG,jpeg}"
+).then((files) => {
+  return files.map((file) => file.default); // Map each file to its default export (the src).
+});
+const krushtenetaImgs = await Astro.glob(
+  "../images/homepage/krushteneta/*.{jpg,JPG,png,JPEG,jpeg}"
+).then((files) => {
+  return files.map((file) => file.default);
+});
+const portraitImgs = await Astro.glob(
+  "../images/homepage/portraits/*.{jpg,JPG,png,JPEG,jpeg}"
+).then((files) => {
+  return files.map((file) => file.default);
+});
+const weddingImgs = await Astro.glob(
+  "../images/homepage/weddings/*.{jpg,JPG,png,JPEG,jpeg}"
+).then((files) => {
+  return files.map((file) => file.default);
+});
+
+const randomConcertImg = getRandomImg(concertImgs);
+const randomKrushtenetaImg = getRandomImg(krushtenetaImgs);
+const randomPortraitImg = getRandomImg(portraitImgs);
+const randomWeddingImg = getRandomImg(weddingImgs);
+---
+
+<div id="bento-wrapper" class="grid grid-cols-8 grid-rows-7 gap-4 h-[90vh]">
+  <a
+    href="/concerts"
+    class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
+  >
+    <Image
+      src={randomConcertImg}
+      width={randomConcertImg.width / 2}
+      alt="Image from a concert of Robi"
+      class="min-w-0 min-h-0 object-cover overflow-hidden rounded-3xl peer z-0 duration-500 group-hover:brightness-75 group-hover:blur-[1px]"
+      densities={[1.5, 2]}
+      loading="lazy"
+      decoding="async"
+      quality="mid"
+      format="webp"
+    />
+    <h1
+      class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-9xl z-10"
+      transition:name="title"
+    >
+      Концерти
+    </h1>
+  </a>
+  <div class="row-start-1 row-end-8 col-start-6 col-end-9 rounded-3xl flex">
+    <a
+      href="/concerts"
+      class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
+    >
+      <Image
+        src={randomWeddingImg}
+        width={randomWeddingImg.width / 2}
+        alt="Image from a concert of Robi"
+        class="min-w-0 min-h-0 object-cover overflow-hidden rounded-3xl peer z-0 duration-500 group-hover:brightness-75 group-hover:blur-[1px]"
+        densities={[1.5, 2]}
+        loading="lazy"
+        decoding="async"
+        quality="mid"
+        format="webp"
+      />
+      <h1
+        class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-8xl z-10"
+        transition:name="title"
+      >
+        Сватби
+      </h1>
+    </a>
+  </div>
+  <div class="row-start-5 row-end-8 col-start-1 col-end-4 rounded-3xl flex">
+    <a
+      href="/concerts"
+      class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
+    >
+      <Image
+        src={randomKrushtenetaImg}
+        width={randomKrushtenetaImg.width / 2}
+        alt="Image from a concert of Robi"
+        class="min-w-0 min-h-0 object-cover overflow-hidden rounded-3xl peer z-0 duration-500 group-hover:brightness-75 group-hover:blur-[1px]"
+        densities={[1.5, 2]}
+        loading="lazy"
+        decoding="async"
+        quality="mid"
+        format="webp"
+      />
+      <h1
+        class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-8xl z-10"
+        transition:name="title"
+      >
+        Кръщенета
+      </h1>
+    </a>
+  </div>
+  <div class="row-start-5 row-end-8 col-start-4 col-end-6 rounded-3xl flex">
+    <a
+      href="/concerts"
+      class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
+    >
+      <Image
+        src={randomPortraitImg}
+        width={randomPortraitImg.width / 2}
+        alt="Image from a concert of Robi"
+        class="min-w-0 min-h-0 object-cover overflow-hidden rounded-3xl peer z-0 duration-500 group-hover:brightness-75 group-hover:blur-[1px]"
+        densities={[1.5, 2]}
+        loading="lazy"
+        decoding="async"
+        quality="mid"
+        format="webp"
+      />
+      <h1
+        class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-8xl z-10"
+        transition:name="title"
+      >
+        Други
+      </h1>
+    </a>
+  </div>
+</div>
