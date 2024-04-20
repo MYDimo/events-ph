@@ -25,19 +25,19 @@ console.log(navChangeLanguage.en[pathName]);
 	<div title="nav-desktop" class="hidden lg:block *:m-8">
 		<div
 			transition:animate={fade({ duration: "1.5s" })}
-			class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-700"
+			class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
 		>
 			<a href=`/${lang}/`>{t("nav.home")}</a>
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
-			class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-700"
+			class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
 		>
 			<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.prices").toLowerCase()}/`>{t("nav.prices")}</a>
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
-			class="fixed top-1/2 left-0 group-hover:blur-sm group-hover:hover:blur-none duration-700"
+			class="fixed top-1/2 left-0 group-hover:blur-sm group-hover:hover:blur-none duration-500"
 		>
 			<div class="group/locales flex gap-1">
 				<a
@@ -55,13 +55,13 @@ console.log(navChangeLanguage.en[pathName]);
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
-			class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-700"
+			class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
 		>
 			<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.about").toLowerCase()}/`>{t("nav.about").replace('-', ' ')}</a>
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
-			class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-700"
+			class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
 		>
 			<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.moments").toLowerCase()}/`>{t("nav.moments")}</a>
 		</div>
