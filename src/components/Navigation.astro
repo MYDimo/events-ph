@@ -6,25 +6,10 @@ import { fade } from "astro:transitions";
 import i18next, { t } from "i18next";
 import { localizePath } from "astro-i18next";
 
-
-// const currentLocale = getRelativeLocaleUrl(Astro.currentLocale);
-// const lang = currentLocale.replaceAll("/", "");
-
 const lang = getLangFromUrl(Astro.url);
 let pathName = Astro.url.pathname.split('/').pop();
-let enPath = t(`changeToEn.${pathName}`);
-let bgPath = t(`changeToBg.${pathName}`);
-// lang == 'en' ? pathName = pathName.split('/')[2] : pathName = pathName.split('/')[1]	
-// const decodedPathName = decodeURIComponent(pathName.substring(1, pathName.length-1));
-
-// const t = useTranslations(lang);
-// console.log(t("nav.home"));
-console.log(lang);
-console.log("orig- ", pathName);
-console.log("en- ", enPath);
-console.log("bg- ", bgPath);
-// console.log(navChangeLanguage.en[pathName]);
-
+let enPath = !pathName ? '' : t(`changeToEn.${pathName}`);
+let bgPath = !pathName ? '' : t(`changeToBg.${pathName}`);
 ---
 
 <nav title="navigation" class="relative w-full group">
