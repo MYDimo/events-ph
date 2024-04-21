@@ -1,6 +1,9 @@
 ---
+import { changeLanguage } from "i18next";
 import Layout from "../layouts/Layout.astro";
 import { Cloudinary } from "@cloudinary/url-gen";
+
+changeLanguage("bg");
 
 const cld = new Cloudinary({ cloud: { cloudName: "drtyxsoe0" } });
 const myImage = cld.image("test/28_Oct_2023_206_iywfkv");

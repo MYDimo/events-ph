@@ -1,9 +1,17 @@
 ---
+import { changeLanguage } from "i18next";
 import Layout from "../../layouts/Layout.astro";
+import { Cloudinary } from "@cloudinary/url-gen";
+
+changeLanguage("en");
+
+const cld = new Cloudinary({ cloud: { cloudName: "drtyxsoe0" } });
+const myImage = cld.image("test/28_Oct_2023_206_iywfkv");
 ---
 
-<Layout title="Prices">
-		<section class="h-full w-1/2 flex flex-col justify-center items-center -z-50">
-			<div transition:animate="slide">nice pricelist with details</div>
-		</section>
+<Layout title="Homepage">
+  <section class="h-full w-1/2 flex flex-col justify-center items-center -z-50">
+    <div>Моменти пак на БГ</div>
+    <img src=`${myImage.toURL()}` alt="asd" />
+  </section>
 </Layout>

@@ -1,0 +1,28 @@
+{
+  "site": {
+    "title": "Catching Moments",
+    "description": "A nice portfolio showcasing the photography services of Mihaylo Dimo"
+  },
+  "nav": {
+    "home": "Home",
+    "prices": "Prices",
+    "moments": "Moments",
+    "about": "About"
+  },
+  "home": {
+    "concerts": "Concerts",
+    "weddings": "Weddings",
+    "bshowers": "Baby Showers", 
+    "portraits": "Portraits"
+  },
+  "changeToBg": {
+    "home": "",
+    "about": "за-мен",
+    "concerts": "концерти",
+    "baby-showers": "кръщенета",
+    "moments": "моменти",
+    "portraits": "портрети",
+    "weddings": "сватби",
+    "prices": "цени"
+  }
+}

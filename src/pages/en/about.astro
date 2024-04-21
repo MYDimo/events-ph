@@ -1,16 +1,12 @@
 ---
+import { changeLanguage } from "i18next";
 import Layout from "../../layouts/Layout.astro";
+
+changeLanguage("en");
 ---
 
 <Layout title="Homepage">
 		<section class="h-full w-1/2 flex flex-col justify-center items-center -z-50">
-			<div>About copy + couple of images</div>
-			<div x-data="{ open: false }">
-				<button @click="open = ! open">Toggle</button>
-		 
-				<span x-show="open" x-transition>
-						Hello 👋
-				</span>
-		</div>
+			<div>Относно, на български</div>
 		</section>
 </Layout>

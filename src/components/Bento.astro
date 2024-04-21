@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { getRandomImg } from "../utils/getRandomImg";
+import i18next, { t } from "i18next";
 
 const concertImgs = await Astro.glob(
   "../images/homepage/concerts/*.{jpg,JPG,png,JPEG,jpeg}"
@@ -31,7 +32,7 @@ const randomWeddingImg = getRandomImg(weddingImgs);
 
 <div id="bento-wrapper" class="grid grid-cols-8 grid-rows-7 gap-4 h-[90vh]">
   <a
-    href="/концерти"
+    href="/concerts"
     class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
   >
     <Image
@@ -49,12 +50,12 @@ const randomWeddingImg = getRandomImg(weddingImgs);
       class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-9xl z-10"
       transition:name="title-concerts"
     >
-      Концерти
+      Concerts
     </h1>
   </a>
   <div class="row-start-1 row-end-8 col-start-6 col-end-9 rounded-3xl flex">
     <a
-      href="/сватби"
+      href="/weddings"
       class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
     >
       <Image
@@ -72,13 +73,13 @@ const randomWeddingImg = getRandomImg(weddingImgs);
         class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-8xl z-10"
         transition:name="title-weddings"
       >
-        Сватби
+        Weddings
       </h1>
     </a>
   </div>
   <div class="row-start-5 row-end-8 col-start-1 col-end-4 rounded-3xl flex">
     <a
-      href="/кръщенета"
+      href="/baby-showers"
       class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
     >
       <Image
@@ -96,13 +97,13 @@ const randomWeddingImg = getRandomImg(weddingImgs);
         class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-8xl z-10"
         transition:name="title-bshowers"
       >
-        Кръщенета
+        Baby showers
       </h1>
     </a>
   </div>
   <div class="row-start-5 row-end-8 col-start-4 col-end-6 rounded-3xl flex">
     <a
-      href="/портрети"
+      href="/portraits"
       class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
     >
       <Image
@@ -120,7 +121,7 @@ const randomWeddingImg = getRandomImg(weddingImgs);
         class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-7xl z-10"
         transition:name="title-portraits"
       >
-        Портрети
+        Portraits
       </h1>
     </a>
   </div>

@@ -3,21 +3,27 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import { navChangeLanguage } from "../utils/navigationLocales"
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { fade } from "astro:transitions";
+import i18next, { t } from "i18next";
+import { localizePath } from "astro-i18next";
+
 
 // const currentLocale = getRelativeLocaleUrl(Astro.currentLocale);
 // const lang = currentLocale.replaceAll("/", "");
 
 const lang = getLangFromUrl(Astro.url);
-let pathName = Astro.url.pathname;
-lang == 'en' ? pathName = pathName.split('/')[2] : pathName = pathName.split('/')[1]
-// const decoded = decodeURIComponent(pathName.substring(1, pathName.length-1));
+let pathName = Astro.url.pathname.split('/').pop();
+let enPath = t(`changeToEn.${pathName}`);
+let bgPath = t(`changeToBg.${pathName}`);
+// lang == 'en' ? pathName = pathName.split('/')[2] : pathName = pathName.split('/')[1]	
+// const decodedPathName = decodeURIComponent(pathName.substring(1, pathName.length-1));
 
-const t = useTranslations(lang);
-console.log(t("nav.home"));
+// const t = useTranslations(lang);
+// console.log(t("nav.home"));
 console.log(lang);
-console.log(pathName);
-console.log(navChangeLanguage.en[pathName]);
-
+console.log("orig- ", pathName);
+console.log("en- ", enPath);
+console.log("bg- ", bgPath);
+// console.log(navChangeLanguage.en[pathName]);
 
 ---
 
@@ -27,28 +33,27 @@ console.log(navChangeLanguage.en[pathName]);
 			transition:animate={fade({ duration: "1.5s" })}
 			class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
 		>
-			<a href=`/${lang}/`>{t("nav.home")}</a>
+			<a href={localizePath("/")}>{t("nav.home")}</a>
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
 			class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
 		>
-			<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.prices").toLowerCase()}/`>{t("nav.prices")}</a>
+			<a href={localizePath("/цени")}>{t("nav.prices")}</a>
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
 			class="fixed top-1/2 left-0 group-hover:blur-sm group-hover:hover:blur-none duration-500"
 		>
-			<div class="group/locales flex gap-1">
+			<div class="group/locales flex divide-x-2">
 				<a
-					href=`/en/${pathName ? navChangeLanguage[lang][pathName] : ''}`
-					class=`duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'en' ? 'cursor-not-allowed': ''}`
+					href=`/en/${enPath}`
+					class=`pr-2 duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'en' ? 'pointer-events-none': ''}`
 					>en</a
 				>
-				/
 				<a
-					href=`/${pathName ? navChangeLanguage[lang][pathName] : ''}`
-					class=`duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'bg' ? 'cursor-not-allowed': ''}`
+					href=`/${bgPath}`
+					class=`pl-2 duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'bg' ? 'pointer-events-none': ''}`
 					>bg</a
 				>
 			</div>
@@ -57,13 +62,13 @@ console.log(navChangeLanguage.en[pathName]);
 			transition:animate={fade({ duration: "2s" })}
 			class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
 		>
-			<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.about").toLowerCase()}/`>{t("nav.about").replace('-', ' ')}</a>
+			<a href={localizePath("/за-мен")}>{t("nav.about")}</a>
 		</div>
 		<div
 			transition:animate={fade({ duration: "2s" })}
 			class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
 		>
-			<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.moments").toLowerCase()}/`>{t("nav.moments")}</a>
+			<a href={localizePath("/моменти")}>{t("nav.moments")}</a>
 		</div>
 	</div>
 	<div
@@ -90,14 +95,14 @@ console.log(navChangeLanguage.en[pathName]);
 		<div class="bg-zinc-600 w-screen h-screen absolute z-40" x-show="open">
 			<div class="flex flex-col h-full justify-center items-center gap-10">
 				<div class="group/locales flex gap-1">
-					<a href=`/en/${pathName ? navChangeLanguage[lang][pathName] : ''}`>en</a>
+					<a href=``>en</a>
 					/
-					<a href=`/${pathName ? navChangeLanguage[lang][pathName] : ''}`>bg</a>
+					<a href=``>bg</a>
 				</div>
-				<a href=`/${lang}`>{t("nav.home")}</a>
-				<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.prices").toLowerCase()}/`>{t("nav.prices")}</a>
-				<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.about").toLowerCase()}/`>{t("nav.about").replace('-', ' ')}</a>
-				<a href=`/${lang != 'bg' ? lang + '/' : ''}${t("nav.moments").toLowerCase()}/`>{t("nav.moments")}</a>
+				<a href={localizePath("/")}>{t("nav.home")}</a>
+				<a href={localizePath("/цени")}>{t("nav.prices")}</a>
+				<a href={localizePath("/за-мен")}>{t("nav.about").replace('-', ' ')}</a>
+				<a href={localizePath("/моменти")}>{t("nav.moments")}</a>
 			</div>
 		</div>
 	</div>
