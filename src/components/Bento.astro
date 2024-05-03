@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { getRandomImg } from "../utils/getRandomImg";
 import i18next, { t } from "i18next";
+import { localizePath } from "astro-i18next";
 
 const concertImgs = await Astro.glob(
   "../images/homepage/concerts/*.{jpg,JPG,png,JPEG,jpeg}"
@@ -32,7 +33,7 @@ const randomWeddingImg = getRandomImg(weddingImgs);
 
 <div id="bento-wrapper" class="grid grid-cols-8 grid-rows-7 gap-4 h-[90vh]">
   <a
-    href="/concerts"
+    href={localizePath("/концерти")}
     class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
   >
     <Image
@@ -50,12 +51,12 @@ const randomWeddingImg = getRandomImg(weddingImgs);
       class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-9xl z-10"
       transition:name="title-concerts"
     >
-      Concerts
+      {t("homepageLinks.concerts")}
     </h1>
   </a>
   <div class="row-start-1 row-end-8 col-start-6 col-end-9 rounded-3xl flex">
     <a
-      href="/weddings"
+      href={localizePath("/сватби")}
       class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
     >
       <Image
@@ -73,13 +74,13 @@ const randomWeddingImg = getRandomImg(weddingImgs);
         class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-8xl z-10"
         transition:name="title-weddings"
       >
-        Weddings
+      {t("homepageLinks.weddings")}
       </h1>
     </a>
   </div>
   <div class="row-start-5 row-end-8 col-start-1 col-end-4 rounded-3xl flex">
     <a
-      href="/baby-showers"
+      href={localizePath("/кръщенета")}
       class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
     >
       <Image
@@ -97,13 +98,13 @@ const randomWeddingImg = getRandomImg(weddingImgs);
         class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-8xl z-10"
         transition:name="title-bshowers"
       >
-        Baby showers
+      {t("homepageLinks.bshowers")}
       </h1>
     </a>
   </div>
   <div class="row-start-5 row-end-8 col-start-4 col-end-6 rounded-3xl flex">
     <a
-      href="/portraits"
+      href={localizePath("/портрети")}
       class="row-start-1 row-end-5 col-start-1 col-end-6 rounded-3xl min-w-0 min-h-0 flex justify-center group"
     >
       <Image
@@ -121,7 +122,7 @@ const randomWeddingImg = getRandomImg(weddingImgs);
         class="absolute opacity-0 peer-hover:opacity-100 hover:opacity-100 duration-500 self-center text-white font-bold text-7xl z-10"
         transition:name="title-portraits"
       >
-        Portraits
+      {t("homepageLinks.portraits")}
       </h1>
     </a>
   </div>

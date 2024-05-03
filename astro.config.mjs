@@ -10,15 +10,5 @@ export default defineConfig({
 		tailwind(),
 		alpinejs({ entrypoint: "/src/entrypoint" }),
 		astroI18next()
-	],
-	i18n: {
-		defaultLocale: "bg",
-		locales: ["en", "bg"],
-		routing: {
-			prefixDefaultLocale: false,
-		},
-		fallback: {
-      en: "bg"
-    }
-	},
+	]
 });

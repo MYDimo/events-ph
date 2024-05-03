@@ -5,13 +5,13 @@ export default {
   routes: {
     en: {
       "за-мен": "about",
-      моменти: "moments",
-      кръщенета: "baby-showers",
-      концерти: "concerts",
-      моменти: "moments",
-      портрети: "portraits",
-      цени: "prices",
-      сватби: "weddings",
+      "моменти": "moments",
+      "кръщенета": "baby-showers",
+      "концерти": "concerts",
+      "моменти": "moments",
+      "портрети": "portraits",
+      "цени": "prices",
+      "сватби": "weddings",
     },
   },
 };
