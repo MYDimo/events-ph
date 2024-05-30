@@ -24,10 +24,14 @@ TO DO: 1-Apr-2024
 - [ ] Add protected page with [dummy gallery](https://neptunian.github.io/react-photo-gallery/) + additional stuff to do 
 
 TO DO: 5-Apr-2024
-- [ ] Add noisy background 
-- [ ] Fetch images from Cloudify & make a gallery component
+-> nothing done
+
+TO DO: 20-May-20
+- [ ] work on homepage scroll transition
 
 Other things
+- [ ] Add noisy background 
+- [ ] Fetch images from Cloudify & make a gallery component
 - [ ] Think about logo -> CM how to rotate etc.
 - [ ] Add noisy background 
 - [ ] Think about typography of navigation and overall

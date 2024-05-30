@@ -1,12 +1,40 @@
 ---
 import { changeLanguage } from "i18next";
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+const homepageHeroImgs = await Astro.glob(
+  "../images/homepage/hero/*.{jpg,JPG,png,JPEG,jpeg}"
+).then((files) => {
+  return files.map((file) => file.default); // Map each file to its default export (the src).
+});
 
 changeLanguage("bg");
 ---
 
 <Layout title="Homepage">
-		<section class="h-full w-1/2 flex flex-col justify-start items-center -z-50 prose">
-			<h1 class="text-zink font-bold text-7xl" transition:name="title-weddings">Сватби</h1>
-		</section>
+  <section class="self-center flex justify-center gap-6 w-full">
+    <Image
+      src={homepageHeroImgs[0]}
+      width={homepageHeroImgs[0].width / 2}
+      alt="Image from a concert of Robi"
+      class="object-fill rounded-3xl"
+      densities={[1.5, 2]}
+      loading="lazy"
+      decoding="async"
+      quality="mid"
+      format="webp"
+    />
+    <div class="prose flex flex-col">
+      <h1 class="text-zink font-bold text-7xl" transition:name="title-weddings">
+				Сватби
+			</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
+        voluptatum mollitia nostrum tempore veniam fuga earum, saepe sint minima
+        at beatae perferendis! Voluptatibus animi dignissimos et nemo laudantium
+        aut minus.
+      </p>
+    </div>
+  </section>
 </Layout>

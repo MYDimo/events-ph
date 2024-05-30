@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+import Logo from "./logo.astro";
+
+const homepageHeroImgs = await Astro.glob(
+  "../images/homepage/hero/*.{jpg,JPG,png,JPEG,jpeg}"
+).then((files) => {
+  return files.map((file) => file.default); // Map each file to its default export (the src).
+});
+---
+
+<div
+  title="homepage-hero"
+  class="flex flex-col items-center justify-start"
+>
+  <Logo id="logo" width="850" height="850" class="" />
+  <h1 id="catchPhrase" class="flex">It's all about catching the right moments</h1>
+  <div id="first-img-section" class="flex grow-0 gap-2 w-full h-[60vh] my-20">
+    <div class="flex grow-0 min-w-0 min-h-0">
+      <Image
+        src={homepageHeroImgs[0]}
+        alt="Image from a concert of Robi"
+        class="object-cover object-top rounded-3xl"
+        densities={[1.5, 2]}
+        loading="lazy"
+        decoding="async"
+        quality="mid"
+        format="webp"
+      />
+    </div>
+    <div class="flex grow-0 min-w-0 min-h-0">
+      <Image
+        src={homepageHeroImgs[0]}
+        alt="Image from a concert of Robi"
+        class="object-cover object-top rounded-3xl"
+        densities={[1.5, 2]}
+        loading="lazy"
+        decoding="async"
+        quality="mid"
+        format="webp"
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  import { animate, inView, scroll } from "motion";
+  import { timeline } from "motion";
+  
+  function init() {
+    const catchPhrase = document.getElementById("catchPhrase");
+    const logo = document.querySelector("#logo");
+    const firstImgSection = document.querySelector("#first-img-section");
+
+    timeline([
+      [logo, { opacity: [0, 1] }, { duration: 1.5 }],
+      [logo, { y: -350, scale: 0.3 }, { duration: 1.5 }],
+      [catchPhrase, { opacity: [0, 1], y: -550 }, { at:"<", duration: 1.5 }],
+      [firstImgSection, { opacity: [0, 1], y: -600 }, { at:"<", duration: 1.5 }],
+    ]);
+    
+    
+    // let sections = document.querySelectorAll('div[title="img-carousel"]');
+
+    // sections.forEach((item) => {
+    //   scroll(animate(item, { opacity: [0, 1, 1, 0] }), {
+    //     target: item,
+    //     offset: ["start end", "end end", "start start", "end start"],
+    //   });
+    // });
+
+    // inView(sections, ({ target }) => {
+    //   console.log(target);
+    //   //on entry of Observer API
+    //   const controls = animate(
+    //     target.querySelector("div"),
+    //     { y: [1000, 0, null] },
+    //     { delay: 0.5, duration: 2.5, easing: [0.17, 0.55, 0.55, 1] }
+    //   );
+
+    //   //on leave of Observer API
+    //   return () => {
+    //     animate(
+    //       target.querySelector("div"),
+    //       { y: [200, 0, null] },
+    //       { delay: 1, duration: 1.5, easing: [0.17, 0.55, 0.55, 1] }
+    //     );
+    //   };
+    // });
+  }
+
+  //necessary for scripts to re-run after nav changes, because Astro's transitions are blocking scripts
+  document.addEventListener("astro:after-swap", init);
+  init();
+</script>
