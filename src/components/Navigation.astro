@@ -5,13 +5,17 @@ import i18next, { t } from "i18next";
 import { localizePath } from "astro-i18next";
 
 const lang = getLangFromUrl(Astro.url);
-let pathName = Astro.url.pathname.split('/').pop();
+let pathName = Astro.url.pathname.split('/')[2];
 let enPath = !pathName ? '' : t(`changeToEn.${pathName}`);
 let bgPath = !pathName ? '' : t(`changeToBg.${pathName}`);
+
+console.log('en', enPath);
+console.log('bg', bgPath);
+
 ---
 
-<nav title="navigation" class="relative w-full group">
-	<div title="nav-desktop" class="hidden lg:block *:m-8">
+<nav id="navigation" class="relative w-full group">
+	<div id="nav-desktop" class="hidden lg:block *:m-8">
 		<div
 			transition:animate={fade({ duration: "1.5s" })}
 			class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
@@ -55,7 +59,7 @@ let bgPath = !pathName ? '' : t(`changeToBg.${pathName}`);
 		</div>
 	</div>
 	<div
-		title="nav-mobile"
+		id="nav-mobile"
 		class="w-full lg:hidden fixed"
 		x-data="{open: false}"
     :class="open ? 'bg-zinc-600' : 'bg-zinc-0'"

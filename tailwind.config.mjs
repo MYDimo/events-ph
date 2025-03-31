@@ -6,7 +6,12 @@ export default {
     "./src/components/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontSize: {
+        'body-lg': '1rem',
+        'body': '.875rem',
+      }
+    },
   },
   plugins: [require("tailwind-hamburgers"), require("@tailwindcss/typography")],
 };

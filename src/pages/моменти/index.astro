@@ -1,0 +1,17 @@
+---
+import { changeLanguage } from "i18next";
+import Layout from "../../layouts/Layout.astro";
+const matches = import.meta.glob('./*.mdx', { eager: true });
+const allPosts = Object.values(matches);
+
+changeLanguage("bg");
+---
+
+<Layout title="Homepage">
+		<section class="h-full w-1/2 flex flex-col justify-center items-center">
+			<div>Моменти брат</div>
+			{allPosts.map((post) => (
+        <a href={post.url}>{post.frontmatter.title}</a>
+      ))}
+		</section>
+</Layout>

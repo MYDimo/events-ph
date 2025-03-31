@@ -1,14 +1,14 @@
 ---
 import { changeLanguage } from "i18next";
-import SimpleGallery from "../../components/SimpleGallery.astro";
-import Bento from "../../components/Bento.astro";
+import HomepageHero from "../../components/HomepageHero.astro"
 import Layout from "../../layouts/Layout.astro";
 
 changeLanguage("en");
 ---
 
 <Layout title="Homepage">
-  <section class="h-full w-4/5 flex flex-col justify-center gap-2">
-		<Bento />
+  <section class="h-full w-4/5 flex flex-col justify-start gap-10">
+    <HomepageHero />
+		<!-- <Bento /> -->
   </section>
 </Layout>
