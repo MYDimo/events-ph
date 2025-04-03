@@ -1,17 +1,86 @@
 ---
+// src/pages/blog/index.astro (or wherever this file lives)
 import { changeLanguage } from "i18next";
 import Layout from "../../layouts/Layout.astro";
-const matches = import.meta.glob('./*.mdx', { eager: true });
+
+// Define the expected structure of the frontmatter for type safety
+interface PostFrontmatter {
+  title: string;
+  layout: string;
+  date: string;
+  coverImg: string;
+  // Add any other frontmatter properties here
+}
+
+// Import all MDX files from the current directory eagerly
+const matches = import.meta.glob<{ frontmatter: PostFrontmatter; url?: string }>('./*.mdx', { eager: true });
 const allPosts = Object.values(matches);
 
+// Sort posts by date, newest first
+const sortedPosts = allPosts.sort((postA, postB) => {
+  const dateA = new Date(postA.frontmatter.date);
+  const dateB = new Date(postB.frontmatter.date);
+  return dateB.getTime() - dateA.getTime();
+});
+
+// Set language (keep this if needed)
 changeLanguage("bg");
+
+// Function to format date as DD-MM-YYYY
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // getMonth() is zero-based, so add 1
+  const year = date.getFullYear();
+
+  // Pad day and month with a leading zero if they are single digits
+  const paddedDay = String(day).padStart(2, '0');
+  const paddedMonth = String(month).padStart(2, '0');
+
+  // Return in DD-MM-YYYY format
+  return `${paddedDay}-${paddedMonth}-${year}`;
+}
 ---
 
-<Layout title="Homepage">
-		<section class="h-full w-1/2 flex flex-col justify-center items-center">
-			<div>Моменти брат</div>
-			{allPosts.map((post) => (
-        <a href={post.url}>{post.frontmatter.title}</a>
+<Layout title="Blog Posts">
+  {/* Centered content area with responsive padding */}
+  <section class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
+    <h1 class="text-4xl md:text-5xl font-bold mb-10 md:mb-12 text-center">All moments</h1> {/* Increased heading size and margin */}
+
+    {/* Container for the cards - Responsive Grid Layout with larger gaps */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10"> {/* Increased gap */}
+
+      {sortedPosts.map((post) => (
+        // Make the entire card a clickable link
+        <a
+          href={post.url}
+          class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-shadow duration-300 ease-in-out"
+           {/* Increased shadow on base and hover, removed dark:bg-gray-800 */}
+          aria-label={`Read more about ${post.frontmatter.title}`}
+        >
+          {/* Increased padding significantly */}
+          <article class="p-8 sm:p-10">
+            {/* Post Title - Increased size and margin */}
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600">
+              {/* Removed dark:text-white, dark:group-hover:text-blue-400 */}
+              {post.frontmatter.title}
+            </h2>
+            {/* Post Date - Increased size and margin */}
+            <p class="text-base text-gray-600 mb-5">
+               {/* Increased size from text-sm, increased margin, removed dark:text-gray-400 */}
+              {formatDate(post.frontmatter.date)}
+            </p>
+             {/* Cover Image - Increased height significantly */}
+            <img
+              src={post.frontmatter.coverImg}
+              alt={`Cover image for ${post.frontmatter.title}`}
+              class="w-full h-80 object-cover object-top mt-4 rounded" {/* Increased height from h-48 */}
+              loading="lazy"
+            />
+          </article>
+        </a>
       ))}
-		</section>
+
+    </div>
+  </section>
 </Layout>
