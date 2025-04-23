@@ -10,7 +10,13 @@ export default defineConfig({
     prefetch: false,
     integrations: [
       tailwind(),
-      astroI18next(),
+      astroI18next({
+        config: {
+          // Set your default language
+          defaultLocale: 'bg', // Or 'en'
+          locales: ['bg', 'en'],
+        }
+      }),  
       mdx(),
       svelte()
     ]

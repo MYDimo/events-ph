@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import { ui } from "../i18n/ui";
-import Logo from "./Logo.astro";
 import ScrollSvg from "./ScrollSvg.astro";
 import BentoHero from "../components/BentoHero.astro";
 
@@ -20,7 +19,6 @@ const homepageHeroImgs = Object.values(imageModules).map(
 ---
 
 <div id="homepageHero" class="flex flex-col items-center justify-start -z-50">
-  <!-- <Logo /> -->
   <img
     id="logo"
     src="/Logo.png"
