@@ -5,7 +5,7 @@ import astroI18next from "astro-i18next";
 import mdx from "@astrojs/mdx";
 import svelte from "@astrojs/svelte";
 
-import { ui, defaultLang, languages } from './src/i18n/utils'; 
+import { ui, defaultLang, languages } from './src/i18n/utils';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,10 +14,10 @@ export default defineConfig({
       tailwind(),
       astroI18next({
         config: {
-          // Set your default language
-          defaultLocale: 'bg', // Or 'en'
-          locales: ['bg', 'en'],
-          resources: ui
+        lng: defaultLang, 
+        supportedLngs: Object.keys(languages),
+        fallbackLng: defaultLang, // Good practice
+        resources: ui,
         }
       }),  
       mdx(),

@@ -1,105 +1,90 @@
 ---
-import { getLangFromUrl } from '../i18n/utils';
 import { fade } from "astro:transitions";
-import i18next, { t } from "i18next";
-import { localizePath } from "astro-i18next";
+import i18next, { t } from "i18next"; // t should now work correctly if config is right
+import { localizePath } from "astro-i18next"; // Use this for generating links *within* the current lang context
 
+// Import utilities from your i18n setup file
+// **ADJUST THE PATH AS NEEDED**
+import {
+  getLangFromUrl,
+  pathTranslations,
+  getBasePathKey,
+  defaultLang,
+  languages
+} from '../i18n/utils';
+
+// Determine current language and pathname
 const lang = getLangFromUrl(Astro.url);
-let pathName = Astro.url.pathname.split('/')[2];
-let enPath = !pathName ? '' : t(`changeToEn.${pathName}`);
-let bgPath = !pathName ? '' : t(`changeToBg.${pathName}`);
+const currentPathname = Astro.url.pathname; // Full path e.g., /en/prices or /цени
 
-console.log('en', enPath);
-console.log('bg', bgPath);
+// Get the canonical (base) path key for the current page (e.g., '/цени')
+const currentPageKey = getBasePathKey(currentPathname, lang);
 
+// Get the target localized paths for language switching links
+const targetEnPath = pathTranslations[currentPageKey]?.en ?? '/';
+const targetBgPath = pathTranslations[currentPageKey]?.bg ?? '/';
+
+// Construct the final HREFs for the language switcher
+// Assumes 'en' needs prefix, 'bg' (default) does not. Adjust if needed.
+const enLinkHref = targetEnPath === '/' ? '/en' : `/en${targetEnPath}`;
+const bgLinkHref = targetBgPath === '/' ? '/' : targetBgPath; // Assumes bg is default, no prefix
+
+// Define canonical paths for main navigation (used with localizePath)
+// These should match the keys in your pathTranslations
+const homePath = '/';
+const pricesPath = '/цени';
+const aboutPath = '/за-мен';
+const momentsPath = '/моменти';
 ---
 
 <nav id="navigation" class="relative w-full group">
-	<div id="nav-desktop" class="hidden lg:block *:m-8">
-		<div
-			transition:animate={fade({ duration: "1.5s" })}
-			class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
-		>
-			<a href={localizePath("/")}>{t("nav.home")}</a>
-		</div>
-		<div
-			transition:animate={fade({ duration: "2s" })}
-			class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
-		>
-			<a href={localizePath("/цени")}>{t("nav.prices")}</a>
-		</div>
-		<div
-			transition:animate={fade({ duration: "2s" })}
-			class="fixed top-1/2 left-0 group-hover:blur-sm group-hover:hover:blur-none duration-500"
-		>
-			<div class="group/locales flex divide-x-2">
-				<a
-					href=`/en/${enPath}`
-					class=`pr-2 duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'en' ? 'pointer-events-none': ''}`
-					>en</a
-				>
-				<a
-					href=`/${bgPath}`
-					class=`pl-2 duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang == 'bg' ? 'pointer-events-none': ''}`
-					>bg</a
-				>
-			</div>
-		</div>
-		<div
-			transition:animate={fade({ duration: "2s" })}
-			class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
-		>
-			<a href={localizePath("/за-мен")}>{t("nav.about")}</a>
-		</div>
-		<div
-			transition:animate={fade({ duration: "2s" })}
-			class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
-		>
-			<a href={localizePath("/моменти")}>{t("nav.moments")}</a>
-		</div>
-	</div>
-	<div
-		id="nav-mobile"
-		class="w-full lg:hidden fixed"
-		x-data="{open: false}"
-    :class="open ? 'bg-zinc-600' : 'bg-zinc-0'"
-	>
-		<div class="flex justify-between w-full p-5">
-			<h1 class="prose z-0">YOOOOOO this is the logo</h1>
-			<div
-				class="tham tham-e-squeeze tham-w-11 z-50"
-				@click="open = !open; $el.classList.toggle('tham-active')"
-			>
-				<div class="tham-box">
-					<div
-						class=`tham-inner`
-						:class="open ? 'bg-slate-50' : 'bg-slate-600'"
-					>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="bg-zinc-600 w-screen h-screen absolute z-40" x-show="open">
-			<div class="flex flex-col h-full justify-center items-center gap-10">
-				<div class="group/locales flex gap-1">
-					<a href=``>en</a>
-					/
-					<a href=``>bg</a>
-				</div>
-				<a href={localizePath("/")}>{t("nav.home")}</a>
-				<a href={localizePath("/цени")}>{t("nav.prices")}</a>
-				<a href={localizePath("/за-мен")}>{t("nav.about").replace('-', ' ')}</a>
-				<a href={localizePath("/моменти")}>{t("nav.moments")}</a>
-			</div>
-		</div>
-	</div>
+  <div id="nav-desktop" class="hidden lg:block *:m-8">
+    <div
+      transition:animate={fade({ duration: "1.5s" })}
+      class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
+    >
+      <a href={localizePath(homePath)}>{t("nav.home")}</a>
+    </div>
+    <div
+      transition:animate={fade({ duration: "2s" })}
+      class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
+    >
+      <a href={localizePath(pricesPath)}>{t("nav.prices")}</a>
+    </div>
+
+    <div
+      transition:animate={fade({ duration: "2s" })}
+      class="fixed top-1/2 left-0 group-hover:blur-sm group-hover:hover:blur-none duration-500"
+    >
+      <div class="group/locales flex divide-x-2">
+        <a
+          href={enLinkHref}
+          class=`pr-2 duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang === 'en' ? 'pointer-events-none text-gray-400' : ''}`
+          aria-current={lang === 'en'}
+          lang="en"
+          hreflang="en"
+        >en</a>
+        <a
+          href={bgLinkHref}
+          class=`pl-2 duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang === 'bg' ? 'pointer-events-none text-gray-400' : ''}`
+          aria-current={lang === 'bg'}
+          lang="bg"
+          hreflang="bg"
+        >bg</a>
+      </div>
+    </div>
+
+    <div
+      transition:animate={fade({ duration: "2s" })}
+      class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
+    >
+      <a href={localizePath(aboutPath)}>{t("nav.about")}</a>
+    </div>
+    <div
+      transition:animate={fade({ duration: "2s" })}
+      class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
+    >
+      <a href={localizePath(momentsPath)}>{t("nav.moments")}</a>
+    </div>
+  </div>
 </nav>
-
-<script>
-	const navChildren = document.querySelectorAll("nav a");
-
-	navChildren.forEach((child) => {
-		child.addEventListener("mouseover", () => {
-		});
-	});
-</script>
