@@ -18,7 +18,7 @@ const homepageHeroImgs = Object.values(imageModules).map(
 );
 ---
 
-<div id="homepageHero" class="flex flex-col items-center justify-start -z-50">
+<div id="homepageHero" class="flex flex-col items-center justify-start">
   <img
     id="logo"
     src="/Logo.png"
@@ -27,13 +27,13 @@ const homepageHeroImgs = Object.values(imageModules).map(
   />
   <div
     id="contentWrapper"
-    class="flex flex-col items-center justify-start gap-20 w-full"
+    class="flex flex-col items-center justify-center gap-20 w-full h-full"
   >
     <section
       id="firstHero"
-      class="flex flex-col items-center justify-start w-full gap-5 prose prose-lg max-w-none"
+      class="flex flex-col items-center justify-center w-full gap-5 prose prose-lg max-w-none"
     >
-      <h1 id="catchPhrase" class="flex opacity-0">
+      <h1 id="catchPhrase" class="text-center text-balance opacity-0">
         {ui[lang]["hero.catchphrase"]}
       </h1>
       <ScrollSvg />

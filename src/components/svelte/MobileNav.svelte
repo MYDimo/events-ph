@@ -1,27 +1,27 @@
-<script lang="ts">
+<script>
   // Import Svelte utilities
   import { fly, fade } from 'svelte/transition';
   import { onMount, onDestroy } from 'svelte';
 
   // --- Props ---
   // Define the data this component expects from Astro
-  export let lang: 'en' | 'bg';
-  export let homeHref: string;
-  export let pricesHref: string;
-  export let aboutHref: string;
-  export let momentsHref: string;
-  export let navHomeText: string;
-  export let navPricesText: string;
-  export let navAboutText: string;
-  export let navMomentsText: string;
-  export let enLinkHref: string;
-  export let bgLinkHref: string;
-  export let toggleMenuLabel: string = 'Toggle menu'; // Default label
+  export let lang;
+  export let homeHref;
+  export let pricesHref;
+  export let aboutHref;
+  export let momentsHref;
+  export let navHomeText;
+  export let navPricesText;
+  export let navAboutText;
+  export let navMomentsText;
+  export let enLinkHref;
+  export let bgLinkHref;
+  export let toggleMenuLabel = 'Toggle menu'; // Default label
 
   // --- State ---
   let open = false; // Reactive state for menu visibility
-  let navElement: HTMLElement; // Reference to the main container for click outside logic
-  let toggleButtonElement: HTMLElement; // Reference to the toggle button
+  let navElement; // Reference to the main container for click outside logic
+  let toggleButtonElement; // Reference to the toggle button
 
   // --- Functions ---
   const closeMenu = () => {
@@ -33,20 +33,20 @@
   };
 
   // --- Event Handlers ---
-  const handleKeydown = (event: KeyboardEvent) => {
+  const handleKeydown = (event) => {
     if (event.key === 'Escape') {
       closeMenu();
     }
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = (event) => {
     // Close if menu is open, click is outside the navElement, AND outside the toggle button
      if (
         open &&
         navElement &&
-        !navElement.contains(event.target as Node) &&
+        !navElement.contains(event.target) &&
         toggleButtonElement &&
-        !toggleButtonElement.contains(event.target as Node)
+        !toggleButtonElement.contains(event.target)
      ) {
        closeMenu();
      }
@@ -67,7 +67,7 @@
 
 <svelte:window on:keydown={handleKeydown}/>
 
-<div bind:this={navElement} class="w-full fixed lg:hidden {open ? 'bg-zinc-600' : 'bg-transparent'} transition-colors duration-300 ease-in-out">
+<div bind:this={navElement} class="w-full fixed {open ? 'bg-zinc-600' : 'bg-transparent'} transition-colors duration-300 ease-in-out">
   <div class="flex justify-between w-full p-5">
     <a href={homeHref} class="prose z-10" on:click={closeMenu}>
       YOOOOOO this is the logo
