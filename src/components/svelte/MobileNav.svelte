@@ -7,11 +7,11 @@
   // Define the data this component expects from Astro
   export let lang;
   export let homeHref;
-  export let pricesHref;
+  export let servicesHref;
   export let aboutHref;
   export let momentsHref;
   export let navHomeText;
-  export let navPricesText;
+  export let navServicesText;
   export let navAboutText;
   export let navMomentsText;
   export let enLinkHref;
@@ -121,7 +121,7 @@
       </div>
 
       <a href={homeHref} on:click={closeMenu}>{navHomeText}</a>
-      <a href={pricesHref} on:click={closeMenu}>{navPricesText}</a>
+      <a href={servicesHref} on:click={closeMenu}>{navServicesText}</a>
       <a href={aboutHref} on:click={closeMenu}>{navAboutText}</a>
       <a href={momentsHref} on:click={closeMenu}>{navMomentsText}</a>
     </div>

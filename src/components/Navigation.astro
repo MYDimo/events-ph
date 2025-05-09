@@ -28,7 +28,7 @@ const enLinkHref = `/en${enBasePath}`;
 const bgLinkHref = bgBasePath === '' ? '/' : bgBasePath;
 
 const homePath = '/';
-const pricesPath = '/цени';
+const servicesPath = '/услуги';
 const aboutPath = '/за-мен';
 const momentsPath = '/моменти';
 
@@ -36,17 +36,20 @@ const momentsPath = '/моменти';
 const mobileNavProps = {
   lang: lang,
   homeHref: localizePath(homePath),
-  pricesHref: localizePath(pricesPath),
+  servicesHref: localizePath(servicesPath),
   aboutHref: localizePath(aboutPath),
   momentsHref: localizePath(momentsPath),
   navHomeText: t("nav.home", "Home"),
-  navPricesText: t("nav.prices", "Prices"),
+  navServicesText: t("nav.services", "Services"),
   navAboutText: t("nav.about", "About Me"),
   navMomentsText: t("nav.moments", "Moments"),
   enLinkHref: enLinkHref,
   bgLinkHref: bgLinkHref,
   toggleMenuLabel: t("nav.toggleMenu", "Toggle menu")
 };
+
+console.log(t("nav.prices"));
+
 ---
 
 <nav id="navigation" class="relative w-full group z-[100]">
@@ -63,7 +66,7 @@ const mobileNavProps = {
       transition:animate={fade({ duration: "2s" })}
       class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
     >
-      <a href={localizePath(pricesPath)}>{t("nav.prices", "Prices")}</a>
+      <a href={localizePath(servicesPath)}>{t("nav.services", "Services")}</a>
     </div>
 
     <div

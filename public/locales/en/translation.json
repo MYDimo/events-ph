@@ -5,7 +5,7 @@
   },
   "nav": {
     "home": "Home",
-    "prices": "Prices",
+    "services": "Services",
     "moments": "Moments",
     "about": "About"
   },
@@ -24,6 +24,6 @@
     "moments": "моменти",
     "portraits": "портрети",
     "weddings": "сватби",
-    "prices": "цени"
+    "services": "услуги"
   }
 }

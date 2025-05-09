@@ -3,11 +3,11 @@
 export interface Props {
   lang: 'en' | 'bg';
   homeHref: string;
-  pricesHref: string;
+  servicesHref: string;
   aboutHref: string;
   momentsHref: string;
   navHomeText: string;
-  navPricesText: string;
+  navServicesText: string;
   navAboutText: string;
   navMomentsText: string;
   enLinkHref: string;
@@ -18,11 +18,11 @@ export interface Props {
 const {
   lang,
   homeHref,
-  pricesHref,
+  servicesHref,
   aboutHref,
   momentsHref,
   navHomeText,
-  navPricesText,
+  navServicesText,
   navAboutText,
   navMomentsText,
   enLinkHref,
@@ -84,7 +84,7 @@ const {
     </div>
 
     <a href={homeHref} class="mobile-nav-link">{navHomeText}</a>
-    <a href={pricesHref} class="mobile-nav-link">{navPricesText}</a>
+    <a href={servicesHref} class="mobile-nav-link">{navServicesText}</a>
     <a href={aboutHref} class="mobile-nav-link">{navAboutText}</a>
     <a href={momentsHref} class="mobile-nav-link">{navMomentsText}</a>
   </div>
@@ -95,7 +95,6 @@ const {
 
   function initializeMobileNavigation() {
     if (isInitialized) return;
-    console.log('MobileNav: Initializing mobile navigation logic...');
 
     const toggleButton = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null;
     const menuItemsContainer = document.getElementById('mobile-menu-items-container') as HTMLElement | null;
@@ -112,12 +111,10 @@ const {
       });
       return;
     }
-    console.log('MobileNav: All essential elements found.');
 
     let isOpen = false;
 
     const openMenu = () => {
-      console.log('MobileNav: openMenu() called.');
       if (isOpen) return;
       isOpen = true;
       toggleButton.setAttribute('aria-expanded', 'true');
@@ -136,11 +133,9 @@ const {
       headerBar.classList.add('bg-zinc-600');
 
       document.body.style.overflow = 'hidden';
-      console.log('MobileNav: Menu opened.');
     };
 
     const closeMenu = () => {
-      console.log('MobileNav: closeMenu() called.');
       if (!isOpen) return;
       isOpen = false;
       toggleButton.setAttribute('aria-expanded', 'false');
@@ -161,11 +156,9 @@ const {
       }
 
       document.body.style.overflow = '';
-      console.log('MobileNav: Menu closed.');
     };
 
     toggleButton.addEventListener('click', (event) => {
-      console.log('MobileNav: Hamburger toggle button CLICKED!');
       event.stopPropagation();
       if (isOpen) {
         closeMenu();
@@ -173,7 +166,6 @@ const {
         openMenu();
       }
     });
-    console.log('MobileNav: Click listener attached to hamburger.');
 
     document.addEventListener('keydown', (event) => {
       if (isOpen && event.key === 'Escape') {
@@ -198,19 +190,15 @@ const {
         }
       });
     });
-    console.log('MobileNav: Auxiliary listeners attached.');
     
     isInitialized = true;
-    console.log('MobileNav: Initialization complete.');
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('MobileNav: DOMContentLoaded event fired.');
     initializeMobileNavigation();
   });
 
   document.addEventListener('astro:page-load', function() {
-    console.log('MobileNav: astro:page-load event fired.');
     initializeMobileNavigation();
   });
 </script>

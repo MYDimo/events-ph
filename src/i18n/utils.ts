@@ -9,16 +9,16 @@ export const defaultLang = 'bg';
 export const ui = {
   en: {
     'nav.home': 'Home',
-    'nav.prices': 'Prices',
-    'nav.about': 'About Me', // Changed slug for URL friendliness
+    'nav.services': 'Services',
+    'nav.about': 'About Me',
     'nav.moments': 'Moments',
     'hero.catchphrase': "Catching smiles, love and happiness one snap at a time."
     // Add other translations
   },
   bg: {
     'nav.home': 'Начало',
-    'nav.prices': 'Цени',
-    'nav.about': 'За мен', // Changed slug for consistency
+    'nav.services': 'Услуги',
+    'nav.about': 'За мен',
     'nav.moments': 'Моменти',
     'hero.catchphrase': "Улавяйки щастие, усмивки и любов, кадър по кадър."
     // Add other translations
@@ -29,7 +29,7 @@ export const ui = {
 // Use URL-friendly slugs for non-default languages
 export const pathTranslations = {
   '/': { en: '/', bg: '/' },
-  '/цени': { en: '/prices', bg: '/цени' },
+  '/услуги': { en: '/services', bg: '/услуги' },
   '/за-мен': { en: '/about-me', bg: '/за-мен' }, // Match the translation keys if possible, or use canonical paths
   '/моменти': { en: '/moments', bg: '/моменти' },
   // Add mappings for ALL your pages here
@@ -53,7 +53,7 @@ export function getBasePathKey(pathname: string, currentLang: LangKeys): PathKey
     // Remove language prefix if it exists and isn't the default language
     if (currentLang !== defaultLang) {
         if (pathname.startsWith(potentialPrefix + '/')) {
-            pathToCheck = pathname.substring(potentialPrefix.length); // e.g., /prices from /en/prices
+            pathToCheck = pathname.substring(potentialPrefix.length); // e.g., /services from /en/services
         } else if (pathname === potentialPrefix) {
             pathToCheck = '/'; // Handles root language path e.g. /en
         }
@@ -65,7 +65,7 @@ export function getBasePathKey(pathname: string, currentLang: LangKeys): PathKey
       pathToCheck = '/' + pathToCheck;
     }
 
-    // Find the canonical key ('/цени', '/', etc.)
+    // Find the canonical key ('/services', '/', etc.)
     for (const [key, translations] of Object.entries(pathTranslations)) {
         if (translations[currentLang as keyof typeof translations] === pathToCheck) {
             return key as PathKeys;

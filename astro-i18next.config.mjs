@@ -10,7 +10,7 @@ export default {
       "концерти": "concerts",
       "моменти": "moments",
       "портрети": "portraits",
-      "цени": "prices",
+      "услуги": "services",
       "сватби": "weddings",
     },
   },
