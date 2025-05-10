@@ -9,6 +9,7 @@ import MobileNav from "../components/MobileNav.astro"; // NEW - Adjust path as n
 
 import { fade } from "astro:transitions";
 import i18next, { t } from "i18next";
+
 import { localizePath } from "astro-i18next";
 
 import {
@@ -31,6 +32,10 @@ const homePath = '/';
 const servicesPath = '/услуги';
 const aboutPath = '/за-мен';
 const momentsPath = '/моменти';
+
+console.log("Netlify Astro.url.pathname:", Astro.url.pathname);
+console.log("Netlify i18next.language:", i18next.language);
+console.log("Netlify detected lang by getLangFromUrl:", lang);
 
 // Props for MobileNav
 const mobileNavProps = {
