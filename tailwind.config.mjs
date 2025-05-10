@@ -13,5 +13,5 @@ export default {
       }
     },
   },
-  plugins: [require("tailwind-hamburgers"), require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/typography")],
 };
