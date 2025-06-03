@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-body {
-  background-image: url('newNoise.svg');
+@plugin "daisyui" {
+  themes: cupcake --default, luxury --prefersdark;
+  root: ":root";
+  include: ;
+  exclude: ;
+  prefix: ;
+  logs: true;
 }
+ 

@@ -6,6 +6,7 @@
 
 // 2. Import the new MobileNav.astro component
 import MobileNav from "../components/MobileNav.astro"; // NEW - Adjust path as necessary
+import ToggleTheme from "./ToggleTheme.astro";
 
 import { fade } from "astro:transitions";
 import i18next, { t } from "i18next";
@@ -16,22 +17,22 @@ import {
   getLangFromUrl,
   pathTranslations,
   getBasePathKey,
-} from '../i18n/utils.ts'; // **ADJUST THE PATH AS NEEDED**
+} from "../i18n/utils.ts"; // **ADJUST THE PATH AS NEEDED**
 
-const lang = getLangFromUrl(Astro.url) as 'en' | 'bg'; // Cast for prop type if utils.ts doesn't guarantee it
+const lang = getLangFromUrl(Astro.url) as "en" | "bg"; // Cast for prop type if utils.ts doesn't guarantee it
 const currentPathname = Astro.url.pathname;
 const currentPageKey = getBasePathKey(currentPathname, lang);
-const targetEnPath = pathTranslations[currentPageKey]?.en ?? '/';
-const targetBgPath = pathTranslations[currentPageKey]?.bg ?? '/';
-const enBasePath = targetEnPath === '/' ? '' : targetEnPath;
-const bgBasePath = targetBgPath === '/' ? '' : targetBgPath;
+const targetEnPath = pathTranslations[currentPageKey]?.en ?? "/";
+const targetBgPath = pathTranslations[currentPageKey]?.bg ?? "/";
+const enBasePath = targetEnPath === "/" ? "" : targetEnPath;
+const bgBasePath = targetBgPath === "/" ? "" : targetBgPath;
 const enLinkHref = `/en${enBasePath}`;
-const bgLinkHref = bgBasePath === '' ? '/' : bgBasePath;
+const bgLinkHref = bgBasePath === "" ? "/" : bgBasePath;
 
-const homePath = '/';
-const servicesPath = '/услуги';
-const aboutPath = '/за-мен';
-const momentsPath = '/моменти';
+const homePath = "/";
+const servicesPath = "/услуги";
+const aboutPath = "/за-мен";
+const momentsPath = "/моменти";
 
 console.log("Netlify Astro.url.pathname:", Astro.url.pathname);
 console.log("Netlify i18next.language:", i18next.language);
@@ -50,68 +51,76 @@ const mobileNavProps = {
   navMomentsText: t("nav.moments", "Moments"),
   enLinkHref: enLinkHref,
   bgLinkHref: bgLinkHref,
-  toggleMenuLabel: t("nav.toggleMenu", "Toggle menu")
+  toggleMenuLabel: t("nav.toggleMenu", "Toggle menu"),
 };
 ---
 
 <nav id="navigation" class="relative w-full group z-[100]">
-  {/* Desktop Navigation - Hidden on small screens, shown on lg screens and up */}
+  {
+    /* Desktop Navigation - Hidden on small screens, shown on lg screens and up */
+  }
   <div id="nav-desktop" class="hidden lg:block *:m-8">
     {/* Your existing desktop navigation links... */}
     <div
       transition:animate={fade({ duration: "1.5s" })}
-      class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
+      class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
       <a href={localizePath(homePath)}>{t("nav.home", "Home")}</a>
     </div>
     <div
       transition:animate={fade({ duration: "2s" })}
-      class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
+      class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
       <a href={localizePath(servicesPath)}>{t("nav.services", "Services")}</a>
     </div>
 
     <div
       transition:animate={fade({ duration: "2s" })}
-      class="fixed top-1/2 left-0 group-hover:blur-sm group-hover:hover:blur-none duration-500"
+      class="fixed top-1/2 left-0 group-hover:blur-sm group-hover:hover:blur-none duration-100"
     >
       <div class="group/locales flex divide-x-2">
         <a
           href={enLinkHref}
           class=`pr-2 duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang === 'en' ? 'pointer-events-none text-gray-400' : ''}`
-          aria-current={lang === 'en' ? 'page' : undefined}
+          aria-current={lang === "en" ? "page" : undefined}
           lang="en"
-          hreflang="en"
-        >en</a>
+          hreflang="en">en</a
+        >
         <a
           href={bgLinkHref}
           class=`pl-2 duration-300 group-hover/locales:opacity-20 group-hover/locales:hover:opacity-100 ${lang === 'bg' ? 'pointer-events-none text-gray-400' : ''}`
-          aria-current={lang === 'bg' ? 'page' : undefined}
+          aria-current={lang === "bg" ? "page" : undefined}
           lang="bg"
-          hreflang="bg"
-        >bg</a>
+          hreflang="bg">bg</a
+        >
       </div>
     </div>
 
     <div
+      class="fixed right-0 top-1/2 group-hover:blur-sm group-hover:hover:blur-none duration-100"
+    >
+      <ToggleTheme />
+    </div>
+
+    <div
       transition:animate={fade({ duration: "2s" })}
-      class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
+      class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
       <a href={localizePath(aboutPath)}>{t("nav.about", "About Me")}</a>
     </div>
     <div
       transition:animate={fade({ duration: "2s" })}
-      class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-500"
+      class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
       <a href={localizePath(momentsPath)}>{t("nav.moments", "Moments")}</a>
     </div>
   </div>
 
   {/* 3. Use the new MobileNav.astro component */}
-  {/* - No client:load needed.
+  {
+    /* - No client:load needed.
        - class="lg:hidden" controls its visibility based on screen size.
-  */}
-  <MobileNav
-    {...mobileNavProps}
-  />
+  */
+  }
+  <MobileNav {...mobileNavProps} />
 </nav>

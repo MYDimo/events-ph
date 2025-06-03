@@ -1,17 +1,17 @@
-/** @type {import('tailwindcss').Config} */
+// Example tailwind.config.mjs
+import typography from '@tailwindcss/typography';
+import daisyui from 'daisyui';
+
 export default {
-  content: [
-    "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
-    "./src/layouts/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
-    "./src/components/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
-  ],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
-    extend: {
-      fontSize: {
-        'body-lg': '1rem',
-        'body': '.875rem',
-      }
-    },
+    extend: {},
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    typography,
+    daisyui,
+  ],
+  daisyui: {
+    themes: ['cupcake', 'luxury'], // Define themes
+  },
 };
