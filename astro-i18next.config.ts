@@ -13,8 +13,6 @@ export default {
       en: { translation: ui.en }, // Structure: lang: { namespace: { translations } }
       bg: { translation: ui.bg },
     },
-    // It's good practice to explicitly set lng for server-side
-    // but astro-i18next usually handles this based on the route
   },
   i18nextClient: { // Config for i18next on the client-side (if you use client:visible components with i18n)
     debug: true,
@@ -23,7 +21,4 @@ export default {
       bg: { translation: ui.bg },
     },
   },
-  // You might also see an "i18nextInit" key in some configurations,
-  // the goal is the same: pass the `resources`.
-  // Consult the specific version of `astro-i18next` documentation if needed.
 };

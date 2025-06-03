@@ -1,0 +1,108 @@
+---
+// src/components/DaisyCarouselWrapper.astro
+import { getImage, type ImageMetadata } from 'astro:assets'; // Import ImageMetadata type
+import DaisyUICarousel from './svelte/DaisyUICarousel.svelte';
+
+export interface Props {
+  /** Optional: A fixed height for carousel items, e.g., "400px", "60vh" */
+  itemHeight?: string;
+  /** Optional: Tailwind CSS classes for the <img> tag */
+  imageClass?: string;
+  /** Optional: Default optimization options for Astro's getImage */
+  imageOptimizationOptions?: Record<string, any>;
+}
+
+const {
+  itemHeight = "450px", // Default height
+  imageClass = "w-full h-full object-cover", // Default image classes
+  imageOptimizationOptions = { width: 1280, format: 'webp', quality: 80 } // Default optimization
+} = Astro.props;
+
+// --- START: MODIFIED SECTION ---
+// Path is relative from this file (src/components/) to src/content/images/carousel/
+// You mentioned you want to import .jpg files. This pattern includes them.
+// If you ONLY want .jpg, change pattern to: "../content/images/carousel/*.jpg"
+const imageModules = import.meta.glob<ImageMetadata | { default: ImageMetadata }>(
+  "../content/images/carousel/*.{jpeg,jpg,png,webp,gif,svg}",
+  { eager: true } // eager: true loads all images upfront, similar to Astro.glob()
+);
+
+// Function to generate alt text from the file path
+function generateAltFromFilename(filePath: string): string {
+  if (!filePath) return 'Carousel image';
+  // filePath will be like '../content/images/carousel/my-image.jpg'
+  const filenameWithExtension = filePath.substring(filePath.lastIndexOf('/') + 1);
+  const filenameWithoutExtension = filenameWithExtension.substring(0, filenameWithExtension.lastIndexOf('.')) || filenameWithExtension;
+  let alt = filenameWithoutExtension.replace(/[-_]/g, ' '); // Replace hyphens/underscores with spaces
+  alt = alt.charAt(0).toUpperCase() + alt.slice(1); // Capitalize first letter
+  return alt || 'Carousel image';
+}
+
+let processedImages = [];
+
+// Check if any image modules were found
+if (Object.keys(imageModules).length === 0) {
+  console.warn(`DaisyCarouselWrapper (using import.meta.glob): No images found matching the pattern in "src/content/images/carousel/".`);
+  console.warn(`Expected location: <your-project-root>/src/content/images/carousel/`);
+  console.warn(`Pattern used: "../content/images/carousel/*.{jpeg,jpg,png,webp,gif,svg}"`);
+} else {
+  // Process the found image modules
+  processedImages = await Promise.all(
+    Object.entries(imageModules).map(async ([path, moduleData], index) => {
+      // For images with import.meta.glob({ eager: true }),
+      // the image metadata is often the 'default' export of the module, or the module itself.
+      const imageMetadata: ImageMetadata | undefined =
+        moduleData && typeof moduleData === 'object' && 'default' in moduleData && moduleData.default && typeof moduleData.default === 'object' && 'src' in moduleData.default
+          ? moduleData.default // Common case: { default: ImageMetadata }
+          : moduleData && typeof moduleData === 'object' && 'src' in moduleData
+          ? moduleData // Case: ImageMetadata is the module itself
+          : undefined;
+
+      if (!imageMetadata) {
+        console.warn(`DaisyCarouselWrapper: Could not extract image metadata for "${path}". Module data:`, moduleData);
+        return null; // Skip this image
+      }
+
+      const altText = generateAltFromFilename(path); // Use the file path to generate alt text
+
+      try {
+        // imageMetadata is the resolved image data.
+        // getImage is used here for applying transformations/optimizations.
+        const optimizedResult = await getImage({
+          ...imageOptimizationOptions, // Your custom optimization options
+          src: imageMetadata,          // Pass the metadata object
+          alt: altText,
+        });
+
+        return {
+          id: `slide${index + 1}`, // Generate unique ID (1-based index for slides is common)
+          src: optimizedResult.src,
+          alt: optimizedResult.alt,
+        };
+      } catch (e) {
+        console.error(`DaisyCarouselWrapper: Error processing image "${path}" (metadata: ${JSON.stringify(imageMetadata)}):`, e);
+        return null; // Skip this image on error
+      }
+    })
+  ).then(images => images.filter(img => img !== null)); // Filter out any nulls from errors/skips
+}
+// --- END: MODIFIED SECTION ---
+---
+
+{processedImages.length > 0 ? (
+  <div class="w-full max-w-4xl mx-auto">
+    <DaisyUICarousel
+      images={processedImages}
+      itemHeight={itemHeight}
+      imageClass={imageClass}
+      client:only="svelte"
+    />
+  </div>
+) : (
+  <div class="p-4 my-8 text-center">
+    <p class="font-semibold text-gray-700 dark:text-gray-300">DaisyUI Carousel: No Images Found</p>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+      Please add images to <code>src/content/images/carousel/</code>.
+    </p>
+  </div>
+)}

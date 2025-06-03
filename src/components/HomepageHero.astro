@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import { ui } from "../i18n/ui";
 import ScrollSvg from "./ScrollSvg.astro";
-import BentoHero from "../components/BentoHero.astro";
+import DaisyCarouselWrapper from "./DaisyCarouselWrapper.astro";
 
 const currentPath = Astro.url.pathname;
 const lang = currentPath.split("/")[1] || "bg";
@@ -18,13 +18,13 @@ const homepageHeroImgs = Object.values(imageModules).map(
 );
 ---
 
-<div id="homepageHero" class="flex flex-col items-center justify-start">
-  <img
+<main id="homepageHero" class="flex w-full h-full flex-col items-center justify-center">
+  <!-- <img
     id="logo"
     src="/Logo.png"
     class="w-[50vw] h-auto top-[15%] left-auto absolute"
     alt="logo showing shutter and the letter M next to it"
-  />
+  /> -->
   <div
     id="contentWrapper"
     class="flex flex-col items-center justify-center gap-20 w-full h-full"
@@ -37,7 +37,7 @@ const homepageHeroImgs = Object.values(imageModules).map(
         {ui[lang]["hero.catchphrase"]}
       </h1>
       <ScrollSvg />
-      <div id="first-img-section" class="flex grow-0 gap-2 h-[90vh] opacity-0">
+      <!-- <div id="first-img-section" class="flex grow-0 gap-2 h-[90vh] opacity-0">
         <div class="flex-1 h-full overflow-hidden rounded-3xl">
           <Image
             src={homepageHeroImgs[0]}
@@ -62,10 +62,15 @@ const homepageHeroImgs = Object.values(imageModules).map(
             format="webp"
           />
         </div>
-      </div>
+      </div> -->
+      <DaisyCarouselWrapper
+      itemHeight="500px"
+      imageClass="w-full h-full object-contain"
+    />
+    <a href="#slide2"> LINK</a>
     </section>
     <section id="secondHero" class="w-full h-[90vh]">
-      <BentoHero />
+      <!-- <BentoHero /> -->
     </section>
     <section
       id="thirdHero"
@@ -223,9 +228,9 @@ const homepageHeroImgs = Object.values(imageModules).map(
       </article>
     </section>
   </div>
-</div>
+</main>
 
-<script>
+<!-- <script>
   import { gsap } from "gsap";
   import { Flip } from "gsap/Flip";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -335,4 +340,4 @@ const homepageHeroImgs = Object.values(imageModules).map(
   // Run on initial load and after navigation
   document.addEventListener("astro:after-swap", init);
   init();
-</script>
+</script> -->
