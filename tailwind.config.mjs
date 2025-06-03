@@ -11,7 +11,7 @@ export default {
     typography,
     daisyui,
   ],
-  daisyui: { // Optional DaisyUI specific config
-    themes: ["light", "dark", "cupcake"],
+  daisyui: {
+    themes: ['cupcake', 'luxury'], // Define themes
   },
 };
