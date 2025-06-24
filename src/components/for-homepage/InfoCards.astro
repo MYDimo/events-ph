@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+import infoCardImg1 from "../../content/images/heroPage/3.jpeg";
+
+import i18next, { t } from "i18next";
+import { localizePath } from "astro-i18next";
+const aboutPath = "/за-мен";
+
+---
+
+
+<section
+  id="infoCard1"
+  class="w-[60%] h-[60vh] grid grid-cols-2 grid-rows-2 gap-4"
+>
+  <article class="prose prose-lg max-w-none text-pretty area-1/1">
+    <h1>Every Frame - a story crafted with passion.</h1>
+    <p>
+      Photography is more than just pressing a shutter. It’s about seeing the
+      unseen, feeling the emotions, and crafting a moment that lives forever.
+      Every wedding is unique, and I take time to ensure each shot tells a story
+      that’s authentically yours.
+    </p>
+  </article>
+  <div class="col-start-1 row-start-2">smth else here</div>
+  <div class="imgWrapper row-span-2 col-start-2 row-start-1">
+    <Image
+      src={infoCardImg1}
+      alt="Image from a concert of Robi"
+      class="imagePh object-cover object-top w-full h-full rounded-3xl"
+      densities={[1.5, 2]}
+      loading="lazy"
+      decoding="async"
+      quality="mid"
+      format="webp"
+    />
+  </div>
+</section>
+ <section
+      id="infoCard2"
+      class="w-[60%] h-[60vh] grid grid-cols-2 grid-rows-1 gap-4"
+    >
+      <article
+        class="prose prose-lg max-w-none text-pretty row-span-2 col-start-2 row-start-1"
+      >
+        <h1>Meet the Eye Behind the Lens.</h1>
+        <p>
+          I’m Mihaylo Dimo, an event photographer who has spent the past five
+          years capturing love stories with passion and dedication. My approach
+          is a mix of journalistic storytelling and carefully crafted, moody
+          portraits. I thrive in the fast-paced, dynamic energy of wedding days,
+          ensuring every moment—big or small—is immortalized with authenticity.
+        </p>
+       <a href={localizePath(aboutPath)}>Повече информация за мен</a>
+      </article>
+      <div class="imgWrapper area-1/1">
+        <Image
+          src={infoCardImg1}
+          alt="img of me"
+          class="imagePh object-cover object-top w-full h-full rounded-3xl"
+          densities={[1.5, 2]}
+          loading="lazy"
+          decoding="async"
+          quality="low"
+          format="webp"
+        />
+      </div>
+    </section>

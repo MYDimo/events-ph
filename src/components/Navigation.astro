@@ -1,77 +1,110 @@
 ---
-// src/layouts/Navigation.astro (or similar path)
+// src/layouts/Navigation.astro
 
-// 1. Remove Svelte import
-// import MobileNavSvelte from "../components/MobileNav.svelte"; // OLD
-
-// 2. Import the new MobileNav.astro component
-import MobileNav from "../components/MobileNav.astro"; // NEW - Adjust path as necessary
+import MobileNav from "../components/MobileNav.astro";
 import ToggleTheme from "./ToggleTheme.astro";
 
 import { fade } from "astro:transitions";
-import i18next, { t } from "i18next";
 
+// localizePath is still used for the language switcher, so keep it for now.
 import { localizePath } from "astro-i18next";
 
 import {
   getLangFromUrl,
   pathTranslations,
   getBasePathKey,
-} from "../i18n/utils.ts"; // **ADJUST THE PATH AS NEEDED**
+  ui
+} from "../i18n/utils.ts";
 
-const lang = getLangFromUrl(Astro.url) as "en" | "bg"; // Cast for prop type if utils.ts doesn't guarantee it
+const lang = getLangFromUrl(Astro.url) as "en" | "bg";
 const currentPathname = Astro.url.pathname;
+
+// --- REFINED Link Generation Logic ---
+// Helper function to get the correct localized path based on the target language
+function getLocalizedNavPath(canonicalPathKey: keyof typeof pathTranslations, targetLang: "en" | "bg") {
+  const localizedSegment = pathTranslations[canonicalPathKey]?.[targetLang];
+
+  if (!localizedSegment) {
+    console.warn(`[Nav] Missing path translation for canonical key "${canonicalPathKey}" in language "${targetLang}". Defaulting to "/".`);
+    return "/";
+  }
+
+  // If the target language is English:
+  if (targetLang === 'en') {
+    // If it's the root path, return "/en".
+    if (localizedSegment === '/') {
+      return '/en';
+    }
+    // For all other English paths, prepend "/en".
+    return `/en${localizedSegment}`;
+  }
+
+  // For the default language ('bg' in your case), return the segment as is.
+  return localizedSegment;
+}
+
+// Define your canonical paths (usually the default language ones)
+const homeCanonicalPath = "/";
+const servicesCanonicalPath = "/услуги";
+const aboutCanonicalPath = "/за-мен";
+const momentsCanonicalPath = "/моменти";
+
+
+// Generate localized hrefs for the current language (lang)
+const homeHref = getLocalizedNavPath(homeCanonicalPath, lang);
+const servicesHref = getLocalizedNavPath(servicesCanonicalPath, lang);
+const aboutHref = getLocalizedNavPath(aboutCanonicalPath, lang);
+const momentsHref = getLocalizedNavPath(momentsCanonicalPath, lang);
+
+// Keep your language switcher links as they are, they seem to work for switching
 const currentPageKey = getBasePathKey(currentPathname, lang);
 const targetEnPath = pathTranslations[currentPageKey]?.en ?? "/";
 const targetBgPath = pathTranslations[currentPageKey]?.bg ?? "/";
-const enBasePath = targetEnPath === "/" ? "" : targetEnPath;
-const bgBasePath = targetBgPath === "/" ? "" : targetBgPath;
+const enBasePath = targetEnPath === "/" ? "" : targetEnPath; // Empty string for root means just /en
+const bgBasePath = targetBgPath === "/" ? "" : targetBgPath; // Empty string for root means just /
 const enLinkHref = `/en${enBasePath}`;
 const bgLinkHref = bgBasePath === "" ? "/" : bgBasePath;
 
-const homePath = "/";
-const servicesPath = "/услуги";
-const aboutPath = "/за-мен";
-const momentsPath = "/моменти";
 
-console.log("Netlify Astro.url.pathname:", Astro.url.pathname);
-console.log("Netlify i18next.language:", i18next.language);
-console.log("Netlify detected lang by getLangFromUrl:", lang);
+// Console logs for debugging (you can remove these later)
+console.log("Nav Astro.url.pathname:", Astro.url.pathname);
+console.log("Nav detected lang by getLangFromUrl:", lang);
+console.log("Nav Home Href:", homeHref); // Should now be /en when lang is 'en'
+console.log("Nav Services Href:", servicesHref);
+console.log("Nav About Href:", aboutHref);
+console.log("Nav Moments Href:", momentsHref);
+
 
 // Props for MobileNav
 const mobileNavProps = {
   lang: lang,
-  homeHref: localizePath(homePath),
-  servicesHref: localizePath(servicesPath),
-  aboutHref: localizePath(aboutPath),
-  momentsHref: localizePath(momentsPath),
-  navHomeText: t("nav.home", "Home"),
-  navServicesText: t("nav.services", "Services"),
-  navAboutText: t("nav.about", "About Me"),
-  navMomentsText: t("nav.moments", "Moments"),
+  homeHref: homeHref, // Use the manually generated href
+  servicesHref: servicesHref, // Use the manually generated href
+  aboutHref: aboutHref,   // Use the manually generated href
+  momentsHref: momentsHref, // Use the manually generated href
+  navHomeText: ui[lang]["nav.home"],
+  navServicesText: ui[lang]["nav.services"],
+  navAboutText: ui[lang]["nav.about"],
+  navMomentsText: ui[lang]["nav.moments"],
   enLinkHref: enLinkHref,
   bgLinkHref: bgLinkHref,
-  toggleMenuLabel: t("nav.toggleMenu", "Toggle menu"),
+  toggleMenuLabel: ui[lang]["nav.toggleMenu"],
 };
 ---
 
 <nav id="navigation" class="relative w-full group z-[100]">
-  {
-    /* Desktop Navigation - Hidden on small screens, shown on lg screens and up */
-  }
   <div id="nav-desktop" class="hidden lg:block *:m-8">
-    {/* Your existing desktop navigation links... */}
     <div
       transition:animate={fade({ duration: "1.5s" })}
       class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={localizePath(homePath)}>{t("nav.home", "Home")}</a>
+      <a href={homeHref}>{ui[lang]["nav.home"]}</a>
     </div>
     <div
       transition:animate={fade({ duration: "2s" })}
       class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={localizePath(servicesPath)}>{t("nav.services", "Services")}</a>
+      <a href={servicesHref}>{ui[lang]["nav.services"]}</a>
     </div>
 
     <div
@@ -106,21 +139,15 @@ const mobileNavProps = {
       transition:animate={fade({ duration: "2s" })}
       class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={localizePath(aboutPath)}>{t("nav.about", "About Me")}</a>
+      <a href={aboutHref}>{ui[lang]["nav.about"]}</a>
     </div>
     <div
       transition:animate={fade({ duration: "2s" })}
       class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={localizePath(momentsPath)}>{t("nav.moments", "Moments")}</a>
+      <a href={momentsHref}>{ui[lang]["nav.moments"]}</a>
     </div>
   </div>
 
-  {/* 3. Use the new MobileNav.astro component */}
-  {
-    /* - No client:load needed.
-       - class="lg:hidden" controls its visibility based on screen size.
-  */
-  }
   <MobileNav {...mobileNavProps} />
 </nav>

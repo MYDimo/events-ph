@@ -1,14 +1,22 @@
 ---
 import { changeLanguage } from "i18next";
-import HomepageHero from "../../components/HomepageHero.astro"
 import Layout from "../../layouts/Layout.astro";
 
-changeLanguage("en");
+import FirstHero from "../../components/for-homepage/FirstHero.astro";
+import BentoHero from "../../components/for-homepage/Bento.astro";
+import InfoCards from "../../components/for-homepage/InfoCards.astro";
+import ProjectsCards from "../../components/for-homepage/ProjectsCards.astro";
+import CallToAction from "../../components/for-homepage/CallToAction.astro";
+
+changeLanguage("bg");
 ---
 
 <Layout title="Homepage">
-  <section class="h-full w-4/5 flex flex-col justify-start gap-10">
-    <HomepageHero />
-		<!-- <Bento /> -->
-  </section>
+  <main class="flex w-full h-full flex-col items-center justify-center gap-20">
+    <FirstHero />
+    <BentoHero />
+    <InfoCards />
+    <ProjectsCards />
+    <CallToAction />
+  </main>
 </Layout>

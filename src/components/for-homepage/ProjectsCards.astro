@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+import projectCardImg from "../../content/images/heroPage/2.jpg";
+---
+
+<section
+      class="fifthHero flex flex-col items-center w-full gap-5 prose prose-l max-w-none"
+    >
+      <h1>Latest captured moments 👇</h1>
+      <div class="wrapper flex flex-row justify-center gap-5">
+        <article
+          class="relative flex flex-col justify-between p-4 bg-slate-50 shadow-sm rounded-xl w-96"
+        >
+          <Image
+            src={projectCardImg}
+            alt="img of me"
+            class="relative m-0 h-72 imagePh object-cover object-middle w-full rounded-xl"
+            densities={[1.5, 2]}
+            loading="lazy"
+            decoding="async"
+            quality="low"
+            format="webp"
+          />
+          <h2>Website Review Check</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente,
+            consequuntur laborum, amet consequatur accusamus praesentium est,
+            blanditiis at
+          </p>
+          <p class="m-0 italic text-sm">12 Feb 2024</p>
+        </article>
+        <article
+          class="relative flex flex-col justify-between p-4 bg-slate-50 shadow-sm rounded-xl w-96"
+        >
+          <Image
+            src={projectCardImg}
+            alt="img of me"
+            class="relative m-0 h-72 imagePh object-cover object-middle w-full rounded-xl"
+            densities={[1.5, 2]}
+            loading="lazy"
+            decoding="async"
+            quality="low"
+            format="webp"
+          />
+          <h2>Website Review Check</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente,
+            consequuntur laborum, amet consequatur accusamus praesentium est,
+            blanditiis at
+          </p>
+          <p class="m-0 italic text-sm">12 Feb 2024</p>
+        </article>
+        <article
+          class="relative flex flex-col justify-between p-4 bg-slate-50 shadow-sm rounded-xl w-96"
+        >
+          <Image
+            src={projectCardImg}
+            alt="img of me"
+            class="relative m-0 h-72 imagePh object-cover object-middle w-full rounded-xl"
+            densities={[1.5, 2]}
+            loading="lazy"
+            decoding="async"
+            quality="low"
+            format="webp"
+          />
+          <h2>Website Review Check</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente,
+            consequuntur laborum, amet consequatur accusamus praesentium est,
+            blanditiis at
+          </p>
+          <p class="m-0 italic text-sm">12 Feb 2024</p>
+        </article>
+      </div>
+    </section>

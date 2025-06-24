@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import ctaHeroImg from '../../content/images/heroPage/3.jpeg';
+---
+
+<section
+      id="sixthHero"
+      class="w-96 flex flex-row items-start justify-center gap-5 prose prose-lg max-w-none mb-10"
+    >
+      <Image
+        src={ctaHeroImg}
+        alt="Image from a concert of Robi"
+        class="imagePh object-cover object-top h-full rounded-3xl m-0"
+        densities={[1.5, 2]}
+        loading="lazy"
+        decoding="async"
+        quality="mid"
+        format="webp"
+      />
+      <article class="flex flex-col items-start justify-between gap-5">
+        <h1 class="m-0 text-7xl">Let’s create timeless memories together!</h1>
+        <p class="m-0">
+          Whether you're planning an intimate elopement or a grand celebration,
+          let's chat about how we can capture your story together.
+        </p>
+        <a
+          href="#"
+          class="m-0 rounded-md no-underline bg-gray-900 px-5 py-3 font-bold text-white text-2xl shadow-xs hover:bg-white hover:text-gray-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >Book now</a
+        >
+      </article>
+    </section>
