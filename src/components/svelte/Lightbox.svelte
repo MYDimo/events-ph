@@ -60,7 +60,7 @@
 >
   <!-- Close Button -->
   <button
-    class="absolute top-5 right-5 text-white z-[110] close-button text-5xl"
+    class="absolute top-5 right-5 cursor-pointer text-white z-[110] close-button text-5xl"
     on:click={() => {
       enableScroll();
       if (onClose) onClose(); // Call parent’s `closeLightbox` when button is clicked
@@ -75,7 +75,7 @@
     <img
       src={images[activeImageIndex].src}
       alt={images[activeImageIndex].caption}
-      class="lightbox-image rounded-md max-w-[95vw] max-h-[95vh] object-contain "
+      class="lightbox-image rounded-md max-w-[95vw] max-h-[95vh] object-contain"
     />
   </div>
 

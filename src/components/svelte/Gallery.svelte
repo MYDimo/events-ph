@@ -46,20 +46,20 @@
   }
 </script>
 
-<div class="container mx-auto px-2 py-4"> {#if images.length > 0}
-    <div class="columns-2 md:columns-3 lg:columns-4 gap-3">
+<div class="container"> {#if images.length > 0}
+    <div class="columns-2 md:columns-3 lg:columns-3 gap-3">
       {#each images as { src, caption }, index}
-        <div class="mb-3 break-inside-avoid">
+        <div class="">
           <button
-            class="group block w-full rounded-lg overflow-hidden bg-transparent border-none p-0 cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-transparent"
-            aria-label={`View ${caption} in lightbox`}
+            class="rounded-lg bg-transparent border-none cursor-pointer text-left focus:outline-none -mt-15"
+            aria-label={`View ${caption} in a lightbox`}
             on:click={() => openLightbox(index)}
           >
             <img
               {src}
               alt={caption}
               loading="lazy"
-              class="block w-full h-auto object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-95 shadow-md hover:shadow-lg m-0"
+              class="block w-full h-auto object-cover rounded-lg shadow-md hover:shadow-l m-0"
             />
           </button>
         </div>
