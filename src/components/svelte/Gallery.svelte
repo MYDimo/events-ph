@@ -46,7 +46,7 @@
   }
 </script>
 
-<div class="container w-4/5"> {#if images.length > 0}
+<div class="container w-[95%] md:w-4/5 lg:w-4/5"> {#if images.length > 0}
     <div class="columns-2 md:columns-3 lg:columns-3 gap-3">
       {#each images as { src, caption }, index}
         <div class="">

@@ -1,11 +1,11 @@
 ---
 titleEn: Elani & Stanislav
-titleBg: Елани & Станислав
+titleBg: Елъни & Станислав
 layout: ../../layouts/Layout.astro
 dateEn: 28 July 2024
 dateBg: 28 Юли 2024
 descriptionEn: A beautiful wedding celebration of Elani and Stanislav, filled with love and joy.
-descriptionBg: Красив празник на любовта и радостта на Елаи и Станислав.
+descriptionBg: Красив празник на любовта и радостта на Елъни и Станислав.
 coverImg: src/images/galleries/elani-and-stanislav/MD-28-07-24-0298.jpg
 filterEn: weddings
 filterBg: сватби
@@ -13,6 +13,6 @@ filterBg: сватби
 import Gallery from "../../components/svelte/Gallery.svelte";
 
 <section class="prose prose-lg max-w-none w-full flex flex-col items-center justify-center">
-# Elani & Stanislav
-<Gallery client:only="svelte" galleryName="elani-and-stanislav"/>
+  <h1 class="p-10">{frontmatter.titleBg}</h1>
+  <Gallery client:only="svelte" galleryName="elani-and-stanislav"/>
 </section>
