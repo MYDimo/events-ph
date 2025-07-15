@@ -6,12 +6,12 @@ import ToggleTheme from "./ToggleTheme.astro";
 
 import { fade } from "astro:transitions";
 
-// localizePath is still used for the language switcher, so keep it for now.
+// Keep localizePath for now, but we'll manually build most links
 import { localizePath } from "astro-i18next";
 
 import {
   getLangFromUrl,
-  pathTranslations,
+  pathTranslations, // IMPORTANT: Make sure this is imported
   getBasePathKey,
   ui
 } from "../i18n/utils.ts";
@@ -19,8 +19,9 @@ import {
 const lang = getLangFromUrl(Astro.url) as "en" | "bg";
 const currentPathname = Astro.url.pathname;
 
-// --- REFINED Link Generation Logic ---
+// --- New/Modified Link Generation Logic ---
 // Helper function to get the correct localized path based on the target language
+// This will replace most localizePath() calls for internal navigation
 function getLocalizedNavPath(canonicalPathKey: keyof typeof pathTranslations, targetLang: "en" | "bg") {
   const localizedSegment = pathTranslations[canonicalPathKey]?.[targetLang];
 
@@ -29,17 +30,13 @@ function getLocalizedNavPath(canonicalPathKey: keyof typeof pathTranslations, ta
     return "/";
   }
 
-  // If the target language is English:
-  if (targetLang === 'en') {
-    // If it's the root path, return "/en".
-    if (localizedSegment === '/') {
-      return '/en';
-    }
-    // For all other English paths, prepend "/en".
+  // If the target language is English AND the path is not the root,
+  // prepend "/en".
+  // For the default language ('bg' in your case) or for the root path '/',
+  // no prefix is needed for the default URL structure.
+  if (targetLang === 'en' && localizedSegment !== '/') {
     return `/en${localizedSegment}`;
   }
-
-  // For the default language ('bg' in your case), return the segment as is.
   return localizedSegment;
 }
 
@@ -60,16 +57,15 @@ const momentsHref = getLocalizedNavPath(momentsCanonicalPath, lang);
 const currentPageKey = getBasePathKey(currentPathname, lang);
 const targetEnPath = pathTranslations[currentPageKey]?.en ?? "/";
 const targetBgPath = pathTranslations[currentPageKey]?.bg ?? "/";
-const enBasePath = targetEnPath === "/" ? "" : targetEnPath; // Empty string for root means just /en
-const bgBasePath = targetBgPath === "/" ? "" : targetBgPath; // Empty string for root means just /
+const enBasePath = targetEnPath === "/" ? "" : targetEnPath;
+const bgBasePath = targetBgPath === "/" ? "" : targetBgPath;
 const enLinkHref = `/en${enBasePath}`;
 const bgLinkHref = bgBasePath === "" ? "/" : bgBasePath;
-
 
 // Console logs for debugging (you can remove these later)
 console.log("Nav Astro.url.pathname:", Astro.url.pathname);
 console.log("Nav detected lang by getLangFromUrl:", lang);
-console.log("Nav Home Href:", homeHref); // Should now be /en when lang is 'en'
+console.log("Nav Home Href:", homeHref);
 console.log("Nav Services Href:", servicesHref);
 console.log("Nav About Href:", aboutHref);
 console.log("Nav Moments Href:", momentsHref);
@@ -98,13 +94,13 @@ const mobileNavProps = {
       transition:animate={fade({ duration: "1.5s" })}
       class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={homeHref}>{ui[lang]["nav.home"]}</a>
+      <a href={homeHref}>{ui[lang]["nav.home"]}</a> {/* Changed to use homeHref */}
     </div>
     <div
       transition:animate={fade({ duration: "2s" })}
       class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={servicesHref}>{ui[lang]["nav.services"]}</a>
+      <a href={servicesHref}>{ui[lang]["nav.services"]}</a> {/* Changed to use servicesHref */}
     </div>
 
     <div
@@ -139,13 +135,13 @@ const mobileNavProps = {
       transition:animate={fade({ duration: "2s" })}
       class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={aboutHref}>{ui[lang]["nav.about"]}</a>
+      <a href={aboutHref}>{ui[lang]["nav.about"]}</a> {/* Changed to use aboutHref */}
     </div>
     <div
       transition:animate={fade({ duration: "2s" })}
       class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={momentsHref}>{ui[lang]["nav.moments"]}</a>
+      <a href={momentsHref}>{ui[lang]["nav.moments"]}</a> {/* Changed to use momentsHref */}
     </div>
   </div>
 

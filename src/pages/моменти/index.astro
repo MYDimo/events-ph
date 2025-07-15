@@ -15,7 +15,10 @@ interface PostFrontmatter {
   coverImg: string;
 }
 
-const matches = import.meta.glob<{ frontmatter: PostFrontmatter; url?: string }>('./*.mdx', { eager: true });
+const matches = import.meta.glob<{
+  frontmatter: PostFrontmatter;
+  url?: string;
+}>("./*.mdx", { eager: true });
 const allPosts = Object.values(matches);
 
 const sortedPosts = allPosts.sort((postA, postB) => {
@@ -26,37 +29,41 @@ const sortedPosts = allPosts.sort((postA, postB) => {
 });
 
 const lang = getLangFromUrl(Astro.url) as "en" | "bg";
-const titleKey = `title${lang.charAt(0).toUpperCase() + lang.slice(1)}` as keyof PostFrontmatter;
-const dateKey = `date${lang.charAt(0).toUpperCase() + lang.slice(1)}` as keyof PostFrontmatter;
+const titleKey =
+  `title${lang.charAt(0).toUpperCase() + lang.slice(1)}` as keyof PostFrontmatter;
+const dateKey =
+  `date${lang.charAt(0).toUpperCase() + lang.slice(1)}` as keyof PostFrontmatter;
 ---
 
 <Layout title="Blog Posts">
-  <section class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 z-60">
-    <h1 class="text-4xl md:text-5xl font-bold mb-10 md:mb-12 text-center">All moments</h1>
+  <section class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 z-60 prose prose-lg">
+    <h1 class="text-center mt-15">All moments</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-
-      {sortedPosts.map((post) => (
-        <a
-          href={post.url}
-          class="block bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl focus:outline-none transition-shadow duration-300 ease-in-out"
-          aria-label={`Read more about ${post.frontmatter[titleKey]}`}
-        >
-          <article class="p-8 sm:p-10">
-            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600">
-              {post.frontmatter[titleKey]}              
-            </h2>
-            <p class="text-base font-semibold italic text-gray-600">{post.frontmatter[dateKey]}</p>
+      {
+        sortedPosts.map((post) => (
+          <div class="block bg-white rounded-3xl shadow-lg p-5">
+            <a
+              href={post.url}
+              class=" no-underline m-0"
+              aria-label={`Read more about ${post.frontmatter[titleKey]}`}
+            >
+              <h2 class="text-gray-900 mb-3 !my-2">
+                {post.frontmatter[titleKey]}
+              </h2>
+              <p class="italic text-gray-600 !my-0">
+                {post.frontmatter[dateKey]}
+              </p>
+            </a>
             <img
               src={post.frontmatter.coverImg}
               alt={`Cover image for ${post.frontmatter[titleKey]}`}
-              class="w-full h-80 object-cover object-top mt-4 rounded-xl"
+              class="w-full h-86 object-cover object-top !my-5 rounded-xl"
               loading="lazy"
             />
-          </article>
-        </a>
-      ))}
-
+          </div>
+        ))
+      }
     </div>
   </section>
 </Layout>
