@@ -10,30 +10,31 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/mdx": "^4.3.4",
     "@astrojs/svelte": "^7.1.0",
-    "@cloudinary/url-gen": "^1.21.0",
-    "@sveltejs/vite-plugin-svelte": "^6.1.0",
-    "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.11.1",
+    "@cloudinary/url-gen": "^1.22.0",
+    "@sveltejs/vite-plugin-svelte": "^6.1.4",
+    "@tailwindcss/vite": "^4.1.12",
+    "@unpic/astro": "^1.0.1",
+    "astro": "^5.13.5",
     "astro-i18next": "^1.0.0-beta.21",
     "astro-imagetools": "^0.9.0",
     "bigger-picture": "^1.1.19",
     "gsap": "^3.13.0",
     "lightgallery": "^2.8.3",
     "macy": "^2.5.1",
-    "motion": "^12.23.6",
+    "motion": "^12.23.12",
     "nanostores": "^1.0.1",
     "photoswipe": "^5.4.4",
-    "svelte": "^5.36.1"
+    "svelte": "^5.38.6"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.21",
-    "daisyui": "^5.0.46",
+    "daisyui": "^5.1.6",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.12"
   }
 }

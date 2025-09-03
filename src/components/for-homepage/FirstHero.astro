@@ -22,30 +22,27 @@ const homepageHeroImgs = Object.values(imageModules).map(
   <h1 id="catchPhrase" class="text-center text-balance mt-10">
     {ui[lang]["hero.catchphrase"]}
   </h1>
-  <!-- <ScrollSvg /> -->
-  <div id="first-img-section" class="flex grow-0 gap-2 h-[90vh]">
+  <div id="first-img-section" class="flex grow-0 gap-2 w-2/3 h-[85vh]">
     <div class="flex-1 h-full overflow-hidden rounded-3xl">
       <Image
         src={homepageHeroImgs[0]}
-        alt="Image from a concert of Robi"
-        class="imagePh object-cover object-top w-full h-full rounded-3xl"
-        densities={[1.5, 2]}
-        loading="lazy"
-        decoding="async"
-        quality="mid"
+        alt="image of a happy couple at a wedding"
+        class="imagePh rounded-3xl"
         format="webp"
+        layout="constrained"
+        quality="mid"
+        priority="true"
       />
     </div>
     <div class="flex-1 h-full overflow-hidden rounded-3xl">
       <Image
         src={homepageHeroImgs[1]}
-        alt="Image from a concert of Robi"
-        class="imagePh object-cover object-top w-full h-full rounded-3xl"
-        densities={[1.5, 2]}
-        loading="lazy"
-        decoding="async"
-        quality="mid"
+        alt="image of a happy couple at a wedding"
+        class="imagePh rounded-3xl"
         format="webp"
+        layout="constrained"
+        quality="mid"
+        priority="true"
       />
     </div>
   </div>

@@ -94,13 +94,13 @@ const mobileNavProps = {
       transition:animate={fade({ duration: "1.5s" })}
       class="fixed top-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={homeHref}>{ui[lang]["nav.home"]}</a> {/* Changed to use homeHref */}
+      <a href={homeHref}>{ui[lang]["nav.home"]}</a>
     </div>
     <div
       transition:animate={fade({ duration: "2s" })}
       class="fixed top-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={servicesHref}>{ui[lang]["nav.services"]}</a> {/* Changed to use servicesHref */}
+      <a href={servicesHref}>{ui[lang]["nav.services"]}</a> 
     </div>
 
     <div
@@ -128,20 +128,20 @@ const mobileNavProps = {
     <div
       class="fixed right-0 top-1/2 group-hover:blur-sm group-hover:hover:blur-none duration-100"
     >
-      <ToggleTheme />
+      <!-- <ToggleTheme /> -->
     </div>
 
     <div
       transition:animate={fade({ duration: "2s" })}
       class="peer fixed bottom-0 left-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={aboutHref}>{ui[lang]["nav.about"]}</a> {/* Changed to use aboutHref */}
+      <a href={aboutHref}>{ui[lang]["nav.about"]}</a> 
     </div>
     <div
       transition:animate={fade({ duration: "2s" })}
       class="fixed bottom-0 right-0 group-hover:blur-sm group-hover:hover:blur-none group-hover:hover:scale-[1.1] duration-100"
     >
-      <a href={momentsHref}>{ui[lang]["nav.moments"]}</a> {/* Changed to use momentsHref */}
+      <a href={momentsHref}>{ui[lang]["nav.moments"]}</a> 
     </div>
   </div>
 
