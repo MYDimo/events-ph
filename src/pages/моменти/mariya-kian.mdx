@@ -1,6 +1,18 @@
 ---
-title: Mariya & Kian
-date: 2021-09-26
+titleEn: Mariya & Kian
+titleBg: Мария & Киан
+layout: ../../layouts/Layout.astro
+dateEn: 28 July 2024
+dateBg: 28 Юли 2024
+descriptionEn: A beautiful wedding celebration of Mariya and Kian, filled with love and joy.
+descriptionBg: Красив празник на любовта и радостта на Мария и Киан.
+coverImg: src/images/galleries/mariya-and-kian/MD-28-07-24-0298.jpg
+filterEn: weddings
+filterBg: сватби
 ---
+import Gallery from "../../components/svelte/Gallery.svelte";
 
-<h1>Mariya & Kian</h1>
+<section class="prose prose-lg max-w-none w-full flex flex-col items-center justify-center">
+  <h1 class="p-10">{frontmatter.titleBg}</h1>
+  <Gallery client:only="svelte" galleryName="mariya-and-kian"/>
+</section>

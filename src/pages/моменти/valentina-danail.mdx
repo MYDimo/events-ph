@@ -1,6 +1,18 @@
 ---
-title: Valentina & Danail
-date: 2021-09-26
+titleEn: Valentina & Danail
+titleBg: Валентина & Данаил
+layout: ../../layouts/Layout.astro
+dateEn: 28 July 2024
+dateBg: 28 Юли 2024
+descriptionEn: A beautiful wedding celebration of Valentina and Danail, filled with love and joy.
+descriptionBg: Красив празник на любовта и радостта на Валентина и Данаил.
+coverImg: src/images/galleries/valentina-and-danail/MD-28-07-24-0298.jpg
+filterEn: weddings
+filterBg: сватби
 ---
+import Gallery from "../../components/svelte/Gallery.svelte";
 
-<h1>Valentina & Danail</h1>
+<section class="prose prose-lg max-w-none w-full flex flex-col items-center justify-center">
+  <h1 class="p-10">{frontmatter.titleBg}</h1>
+  <Gallery client:only="svelte" galleryName="valentina-and-danail"/>
+</section>
